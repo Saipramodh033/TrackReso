@@ -1,0 +1,60 @@
+.topic {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.topic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+}
+
+.topic-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.caret {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.caret.down {
+    transform: rotate(180deg);
+}
+
+.add-card, .delete-topic {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.add-card:hover {
+    background-color: #218838;
+}
+
+.delete-topic {
+    background-color: #dc3545;
+}
+
+.delete-topic:hover {
+    background-color: #c82333;
+}
+
+.cards-list {
+    margin-top: 10px;
+}

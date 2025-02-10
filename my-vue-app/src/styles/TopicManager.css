@@ -1,0 +1,49 @@
+.topic-manager {
+    padding: 20px;
+}
+
+.add-topic-container {
+    margin-bottom: 20px;
+}
+
+.add-topic-input {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.add-topic {
+    padding: 10px;
+}
+
+#topicsList {
+    margin-top: 20px;
+}
+
+.topic {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.topic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.caret {
+    margin-left: 10px;
+}
+
+.caret.down {
+    transform: rotate(180deg);
+}
+
+.add-card, .delete-topic {
+    margin-left: 10px;
+}
+
+.cards-list {
+    margin-top: 10px;
+}
