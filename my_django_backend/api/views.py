@@ -1,34 +1,35 @@
 from rest_framework.response import Response
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, generics
 from .models import Topic, Card
-from .serializers import TopicSerializer, CardSerializer
+from .serializers import TopicSerializer, CardSerializer, UserSerializer
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
+    permission_classes = [IsAuthenticated]
 
-    def create(self, request, *args, **kwargs):
-        print("Received Data:", request.data)  # Debugging
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            topic = serializer.save()  # Explicit save
-            print("Saved Topic:", topic)  # Debugging
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print("Serializer Errors:", serializer.errors)  # Debugging
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get_queryset(self):
+        return Topic.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class CardViewSet(viewsets.ModelViewSet):
-    queryset = Card.objects.all()
     serializer_class = CardSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Card.objects.filter(topic__user=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        print("PATCH/PUT request received:", request.data)  # Debugging
-        response = super().update(request, *args, **kwargs)
-        print("Updated card response:", response.data)  # Debugging
-        return response
+        return super().update(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
-        print("Partial Update (PATCH) Request:", request.data)  # Debugging
-        response = super().partial_update(request, *args, **kwargs)
-        print("Updated Card:", response.data)  # Debugging
-        return response
+        return super().partial_update(request, *args, **kwargs)
+
+class CreateuserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]

@@ -1,16 +1,16 @@
-from django.shortcuts import redirect
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from api.views import TopicViewSet, CardViewSet
+from .views import TopicViewSet, CardViewSet, CreateuserView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
-router.register(r'topics', TopicViewSet)
-router.register(r'cards', CardViewSet)
-
-def redirect_to_api(request):
-    return redirect('/api/')  # Redirects users from / to /api/
+router.register(r'topics', TopicViewSet, basename='topic')   # /api/topics/
+router.register(r'cards', CardViewSet, basename='card')       # /api/cards/
 
 urlpatterns = [
-    path('', redirect_to_api),  # Redirect root URL to /api/
-    path('', include(router.urls)),  # Remove the 'api/' prefix here
+    *router.urls,  # expands to topics/, cards/, etc.
+    path('user/register/', CreateuserView.as_view(), name='register'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api-auth/', include('rest_framework.urls')),  # optional DRF login/logout UI
 ]

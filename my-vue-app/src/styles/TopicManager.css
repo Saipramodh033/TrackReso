@@ -1,49 +1,65 @@
-.topic-manager {
-    padding: 20px;
+.topic-manager-container {
+    background-color: #ffffffcc;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+    transition: all 0.3s ease;
 }
 
-.add-topic-container {
+.topic-manager-title {
+    font-size: 2.5rem;
+    text-align: center;
     margin-bottom: 20px;
+    color: #222;
 }
 
-.add-topic-input {
-    padding: 10px;
-    margin-right: 10px;
-}
-
-.add-topic {
-    padding: 10px;
-}
-
-#topicsList {
-    margin-top: 20px;
-}
-
-.topic {
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-}
-
-.topic-header {
+.topic-manager-add {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.topic-manager-input {
+    padding: 12px 20px;
+    border: 2px solid #888;
+    border-radius: 10px;
+    width: 300px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.topic-manager-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.2);
+    background-color: #222;
+}
+
+.topic-manager-add-button {
+    padding: 12px 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
 }
 
-.caret {
-    margin-left: 10px;
+.topic-manager-add-button:hover {
+    background-color: #357abd;
+    transform: scale(1.05);
 }
 
-.caret.down {
-    transform: rotate(180deg);
+.topic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.add-card, .delete-topic {
-    margin-left: 10px;
-}
-
-.cards-list {
-    margin-top: 10px;
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(1px); }
+    to { opacity: 1; transform: translateY(0); }
 }

@@ -1,46 +1,77 @@
-import React from "react";
-import Card from "./Card";
-import "../styles/Topic.css";
+import React, { useState } from 'react';
+import Card from './Card';
+import '../styles/Topic.css';
 
-const Topic = ({ index, topic, deleteTopic, toggleCollapse, setTopics, topics }) => {
-    const addCard = () => {
-        const updatedTopics = [...topics];
-        updatedTopics[index].cards.push({ name: "New Card", resource: "", note: "", progress: 0, starred: false, collapsed: true });
+const Topic = ({ topic, deleteTopic, toggleCollapse, setTopics, topics }) => {
+    const [addingNew, setAddingNew] = useState(false);
+
+    const deleteCard = (cardId) => {
+        // Ideally call API to delete, then update state
+        const updatedTopics = topics.map((t) =>
+            t.id === topic.id
+                ? { ...t, cards: t.cards.filter((card) => card.id !== cardId) }
+                : t
+        );
         setTopics(updatedTopics);
     };
 
-    const deleteCard = (cardIndex) => {
-        const confirmed = window.confirm("Are you sure you want to delete this card?");
-        if (confirmed) {
-            const updatedTopics = [...topics];
-            updatedTopics[index].cards.splice(cardIndex, 1);
-            setTopics(updatedTopics);
-        }
-    };
-
     return (
-        <div className={`topic ${topic.collapsed ? "collapsed" : ""}`}>
-            <div className="topic-header" onClick={() => toggleCollapse(index)}>
-                <h2>{topic.name} ({topic.cards.length} cards)</h2>
-                <span className={`caret ${topic.collapsed ? "" : "down"}`}>▼</span>
-                <button className="add-card" onClick={(e) => { e.stopPropagation(); addCard(); }}>Add Card</button>
-                <button className="delete-topic" onClick={(e) => { e.stopPropagation(); deleteTopic(index); }}>Delete Topic</button>
+        <div className="topic-card">
+            <div className="topic-header">
+                <h2 className="topic-title">{topic.name}</h2>
+                <div className="topic-buttons">
+                    <button onClick={() => toggleCollapse(topic.id)} className="btn-toggle">
+                        {topic.collapsed ? 'Expand' : 'Collapse'}
+                    </button>
+                    <button
+                        onClick={() => {
+                            if (window.confirm('Are you sure you want to delete this topic? This action cannot be undone.')) {
+                                deleteTopic(topic.id);
+                            }
+                        }}
+                        className="btn-delete"
+                    >
+                        Delete
+                    </button>
+                </div>
+
             </div>
 
             {!topic.collapsed && (
-                <div className="cards-list">
-                    {topic.cards.map((card, cardIndex) => (
-                        <Card
-                            key={cardIndex}
-                            topicIndex={index}
-                            cardIndex={cardIndex}
-                            card={card}
-                            setTopics={setTopics}
-                            topics={topics}
-                            deleteCard={deleteCard}
-                        />
-                    ))}
-                </div>
+                <>
+                    <div className="cards-list">
+                        {topic.cards?.map((card) => (
+                            <Card
+                                key={card.id}
+                                card={card}
+                                deleteCard={deleteCard}
+                                topicId={topic.id}
+                                topics={topics}
+                                setTopics={setTopics}
+                            />
+                        ))}
+
+                        {/* New card form via Card component */}
+                        {addingNew && (
+                            <Card
+                                key="new-card"
+                                card={{}} // empty card for new
+                                deleteCard={deleteCard}
+                                topicId={topic.id}
+                                topics={topics}
+                                setTopics={setTopics}
+                                isNew={true}
+                                onAdded={() => setAddingNew(false)}
+                            />
+                        )}
+                    </div>
+
+                    {!addingNew && (
+                        <button className="btn-add-card" onClick={() => setAddingNew(true)}>
+                            + Add New Card
+                        </button>
+                    )}
+                </>
             )}
         </div>
     );

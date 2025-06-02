@@ -1,60 +1,94 @@
-.topic {
-    background: white;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 8px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+.topic-card {
+    background: #a2e8fc;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    perspective: 800px;
 }
+
+.topic-card:hover {
+    transform: scale(1) rotateX(0.8deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
 
 .topic-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.topic-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.topic-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-toggle,
+.btn-delete {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle {
+    background-color: #fff708;
+    color: #000;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-toggle:hover {
+    background-color: #f1c40f;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+.add-card {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.add-card-input {
+    flex: 1;
     padding: 10px;
-    font-size: 18px;
-    background-color: #e9ecef;
+    border: 1px solid #bbb;
     border-radius: 8px;
 }
 
-.topic-header h2 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.caret {
-    margin-left: 10px;
-    transition: transform 0.3s ease;
-}
-
-.caret.down {
-    transform: rotate(180deg);
-}
-
-.add-card, .delete-topic {
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #28a745;
+.btn-add-card {
+    background-color: #2ecc71;
     color: white;
+    padding: 10px 14px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
 }
 
-.add-card:hover {
-    background-color: #218838;
-}
-
-.delete-topic {
-    background-color: #dc3545;
-}
-
-.delete-topic:hover {
-    background-color: #c82333;
+.btn-add-card:hover {
+    background-color: #27ae60;
 }
 
 .cards-list {
-    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 }

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Topic, Card
+from django.contrib.auth.models import User
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +20,15 @@ class TopicSerializer(serializers.ModelSerializer):
         for card_data in cards_data:
             Card.objects.create(topic=topic, **card_data)
         return topic
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "password"]
+        extra_kwargs = {
+            'password': {'write_only': True, 'required': True},
+            'email': {'required': False},
+        }
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)

@@ -1,56 +1,223 @@
-import React from "react";
-import "../styles/Card.css";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import api from './api';
+import '../styles/Card.css';
 
-const Card = ({ topicIndex, cardIndex, card, setTopics, topics, deleteCard }) => {
-    const toggleCollapse = () => {
-        const updatedTopics = [...topics];
-        updatedTopics[topicIndex].cards[cardIndex].collapsed = !card.collapsed;
-        setTopics(updatedTopics);
+const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onAdded }) => {
+    const [editing, setEditing] = useState(isNew);
+
+    const [formData, setFormData] = useState({
+        name: card?.name || '',
+        resource: card?.resource || '',
+        note: card?.note || '',
+        progress: card?.progress || 0,
+        starred: card?.starred || false,
+        collapsed: card?.collapsed || false,
+    });
+
+    useEffect(() => {
+        setFormData({
+            name: card?.name || '',
+            resource: card?.resource || '',
+            note: card?.note || '',
+            progress: card?.progress || 0,
+            starred: card?.starred || false,
+            collapsed: card?.collapsed || false,
+        });
+    }, [card]);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : value,
+        });
     };
 
+    const handleSave = async () => {
+        try {
+            if (isNew) {
+                const response = await api.post('cards/', {
+                    ...formData,
+                    progress: Number(formData.progress),
+                    topic: topicId,
+                });
 
+                const newCard = response.data;
 
-    const updateCard = (field, value) => {
-        const updatedTopics = [...topics];
-        updatedTopics[topicIndex].cards[cardIndex][field] = value;
-        setTopics(updatedTopics);
-    
-        // Debugging: Check if `id` exists
-        const cardId = updatedTopics[topicIndex].cards[cardIndex].id;
-        console.log("Updating Card - ID:", cardId, "Field:", field, "Value:", value);
-    
-        if (!cardId) {
-            console.error("Error: Card ID is undefined. Cannot update.");
-            return;
+                const updatedTopics = topics.map((topic) =>
+                    topic.id === topicId
+                        ? { ...topic, cards: [...topic.cards, newCard] }
+                        : topic
+                );
+                setTopics(updatedTopics);
+
+                setEditing(false);
+                if (onAdded) onAdded();
+
+            } else {
+                const response = await api.put(`cards/${card.id}/`, {
+                    ...formData,
+                    progress: Number(formData.progress),
+                    topic: topicId,
+                });
+
+                const updatedCard = response.data;
+
+                const updatedTopics = topics.map((topic) =>
+                    topic.id === topicId
+                        ? {
+                            ...topic,
+                            cards: topic.cards.map((c) =>
+                                c.id === card.id ? updatedCard : c
+                            ),
+                        }
+                        : topic
+                );
+                setTopics(updatedTopics);
+                setEditing(false);
+            }
+        } catch (error) {
+            console.error('Error saving card:', error);
+            alert('Failed to save card. Please try again.');
         }
-    
-        // Send update request to API
-        axios.patch(`http://127.0.0.1:8000/api/cards/${cardId}/`, { [field]: value })
-            .then(response => console.log("Card updated successfully:", response.data))
-            .catch(error => console.error("Error updating card:", error));
     };
-    
 
+    const toggleStar = async () => {
+        try {
+            const updatedCard = {
+                ...card,
+                starred: !card.starred,
+            };
+            const response = await api.put(`cards/${card.id}/`, updatedCard);
+
+            const updatedTopics = topics.map((topic) =>
+                topic.id === topicId
+                    ? {
+                        ...topic,
+                        cards: topic.cards.map((c) =>
+                            c.id === card.id ? response.data : c
+                        ),
+                    }
+                    : topic
+            );
+            setTopics(updatedTopics);
+        } catch (error) {
+            console.error('Error toggling star:', error);
+            alert('Could not update starred status.');
+        }
+    };
+
+    if (isNew && !editing) {
+        return (
+            <button className="add-new-card-btn" onClick={() => setEditing(true)}>
+                + Add New Card
+            </button>
+        );
+    }
 
     return (
-        <div className={`card ${card.collapsed ? "" : "expanded"}`}>
-            <div className="card-header">
-                <input type="text" value={card.name} onChange={(e) => updateCard("name", e.target.value)} />
-                <span className={`caret ${card.collapsed ? "" : "down"}`} onClick={toggleCollapse}>▼</span>
-                <button className={`star-button ${card.starred ? "starred" : ""}`} onClick={() => updateCard("starred", !card.starred)}>★</button>
-                <button className="delete-card" onClick={() => deleteCard(cardIndex)}>Delete Card</button>
-            </div>
+        <div className="card-container">
+            {editing ? (
+                <div className="card-edit-form">
+                    <h3 className="card-subheading">{isNew ? 'Add New Card' : 'Edit Card'}</h3>
 
-            {!card.collapsed && (
-                <div className="card-content">
-                    <input type="text" placeholder="Resource (text, link, or image URL)" value={card.resource} onChange={(e) => updateCard("resource", e.target.value)} />
-                    <textarea placeholder="Short note..." value={card.note} onChange={(e) => updateCard("note", e.target.value)} />
-                    <div className="progress-bar">
-                        <div className="progress" style={{ width: `${card.progress}%` }}></div>
+                    <label className="card-label">Card Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Card Name"
+                    />
+
+                    <label className="card-label">Resource</label>
+                    <textarea
+                        name="resource"
+                        value={formData.resource}
+                        onChange={handleChange}
+                        placeholder="Resource"
+                    />
+
+                    <label className="card-label">Note</label>
+                    <textarea
+                        name="note"
+                        value={formData.note}
+                        onChange={handleChange}
+                        placeholder="Note"
+                    />
+
+                    <label className="card-label">Progress: {formData.progress}%</label>
+                    <input
+                        type="range"
+                        name="progress"
+                        value={formData.progress}
+                        onChange={handleChange}
+                        min="0"
+                        max="100"
+                        step="1"
+                        className="progress-slider"
+                    />
+
+                    <div className="card-actions">
+                        <button onClick={handleSave}>💾 Save</button>
+                        <button
+                            onClick={() => {
+                                if (isNew && onAdded) {
+                                    onAdded();
+                                } else {
+                                    setEditing(false);
+                                    setFormData({
+                                        name: card?.name || '',
+                                        resource: card?.resource || '',
+                                        note: card?.note || '',
+                                        progress: card?.progress || 0,
+                                        starred: card?.starred || false,
+                                        collapsed: card?.collapsed || false,
+                                    });
+                                }
+                            }}
+                        >
+                            ✖ Cancel
+                        </button>
                     </div>
-                    <input type="range" min="0" max="100" value={card.progress} onChange={(e) => updateCard("progress", e.target.value)} />
                 </div>
+            ) : (
+                <div className="card-view">
+                    <h3 className="card-subheading">Card Details</h3>
+                    <p><strong>Name:</strong> {card.name}</p>
+                    <p><strong>Resource:</strong> {card.resource}</p>
+                    <p><strong>Note:</strong> {card.note}</p>
+
+                    <div className="progress-display">
+                        <strong>Progress:</strong>
+                        <div className="progress-bar">
+                            <div
+                                className="progress-bar-fill"
+                                style={{ width: `${card.progress}%` }}
+                            >
+                                <span className="progress-label">{card.progress}%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card-actions">
+                        <button className="edit-btn" onClick={() => setEditing(true)}>✏ Edit</button>
+                        <button className="star-btn" onClick={toggleStar}>
+                            {card.starred ? '⭐' : '☆'}
+                        </button>
+                        <button
+                            className="delete-btn"
+                            onClick={() => {
+                                if (window.confirm('Are you sure you want to delete this card?')) {
+                                    deleteCard(card.id);
+                                }
+                            }}
+                        >
+                            🗑 Delete
+                        </button>
+                    </div>
+                </div>
+
             )}
         </div>
     );

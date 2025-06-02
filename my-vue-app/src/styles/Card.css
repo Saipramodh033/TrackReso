@@ -1,51 +1,235 @@
-.card {
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
+/* Card container */
+.card-container {
+  background: #f7f1de;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 100%;
+  transition: box-shadow 0.3s ease;
 }
 
-.card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+.card-container:hover {
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.12);
 }
 
-.caret {
-    margin-left: 10px;
+/* Subheading */
+.card-subheading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
 }
 
-.caret.down {
-    transform: rotate(180deg);
+/* Card content layout */
+.card-view {
+  position: relative;
+  padding: 1rem 1.5rem 3.5rem;
+  background-color: #f7f1de;
+  border-radius: 12px;
 }
 
-.star-button {
-    margin-left: 10px;
-    cursor: pointer;
+/* Info blocks */
+.card-view p {
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e0e0e0;
 }
 
-.star-button.starred {
-    color: gold;
+.card-view p strong {
+  width: 120px;
+  font-weight: 600;
+  color: #444;
 }
 
-.delete-card {
-    margin-left: 10px;
-    cursor: pointer;
+/* Action buttons wrapper (star + edit) */
+.card-view .top-right-actions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
 }
 
-.card-content {
-    margin-top: 10px;
+/* Star button */
+.card-view .star-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #f1c40f;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card-view .star-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Edit button */
+.card-view .edit-btn {
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.card-view .edit-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Delete button */
+.card-view .delete-btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.card-view .delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Form Styling */
+.card-edit-form label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.card-edit-form input,
+.card-edit-form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  font-family: inherit;
+}
+
+.card-edit-form input:focus,
+.card-edit-form textarea:focus {
+  border-color: #2ecc71;
+  outline: none;
+}
+
+/* Checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  margin-top: 14px;
+}
+
+/* Form action buttons */
+.card-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+.card-actions button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.card-actions button:first-child {
+  background-color: #2ecc71;
+}
+
+.card-actions button:first-child:hover {
+  background-color: #27ae60;
+}
+
+.card-actions button:last-child {
+  background-color: #e74c3c;
+}
+
+.card-actions button:last-child:hover {
+  background-color: #c0392b;
+}
+
+/* Add new card button */
+.add-new-card-btn {
+  background-color: #3498db;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 30px auto;
+  display: block;
+  transition: background-color 0.3s;
+  max-width: 400px;
+  width: 100%;
+}
+
+.add-new-card-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Progress */
+.progress-display {
+  margin-top: 12px;
 }
 
 .progress-bar {
-    height: 10px;
-    background-color: #f3f3f3;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-top: 10px;
+  height: 18px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 6px;
 }
 
-.progress {
-    height: 100%;
-    background-color: #4caf50;
+.progress-bar-fill {
+  height: 100%;
+  background-color: #4caf50;
+  color: #fff;
+  padding-right: 8px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 10px;
+  transition: width 0.3s;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  margin-top: 4px;
+  color: #555;
 }
