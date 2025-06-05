@@ -1,55 +1,66 @@
 /* Card container */
 .card-container {
-  background: #f7f1de;
+  background: linear-gradient(145deg, #1e1e3a, #252550);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.15), inset 0 0 3px rgba(0, 255, 255, 0.05);
   padding: 24px;
   margin: 20px auto;
   width: 100%;
   max-width: 100%;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 .card-container:hover {
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25), inset 0 0 5px rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 /* Subheading */
 .card-subheading {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: #00ffcc;
   margin-bottom: 16px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
   padding-bottom: 8px;
+  text-shadow: 0 0 4px rgba(0, 255, 204, 0.4);
+  font-family: 'Orbitron', sans-serif;
 }
 
 /* Card content layout */
 .card-view {
   position: relative;
   padding: 1rem 1.5rem 3.5rem;
-  background-color: #f7f1de;
+  background: linear-gradient(145deg, #1a1a2e, #20203e);
   border-radius: 12px;
+  box-shadow: inset 0 0 3px rgba(0, 255, 255, 0.1);
 }
 
 /* Info blocks */
 .card-view p {
-  background: #ffffff;
+  background: #0f0f1a;
   padding: 12px 16px;
   border-radius: 10px;
   margin: 10px 0;
   font-size: 1rem;
-  color: #333;
+  color: #b0e0ff;
   display: flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.card-view p:hover {
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.2);
 }
 
 .card-view p strong {
   width: 120px;
   font-weight: 600;
-  color: #444;
+  color: #00ffcc;
+  text-shadow: 0 0 3px rgba(0, 255, 204, 0.3);
 }
 
 /* Action buttons wrapper (star + edit) */
@@ -67,30 +78,34 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #f1c40f;
+  color: #ffcc00;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, text-shadow 0.2s;
 }
 
 .card-view .star-btn:hover {
   transform: scale(1.2);
+  text-shadow: 0 0 6px rgba(255, 204, 0, 0.5);
 }
 
 /* Edit button */
 .card-view .edit-btn {
-  background-color: #2ecc71;
-  color: #fff;
+  background: linear-gradient(90deg, #33cc99, #00ff99);
+  color: #ffffff;
   border: none;
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 3px rgba(0, 255, 153, 0.4);
 }
 
 .card-view .edit-btn:hover {
-  background-color: #27ae60;
+  background: linear-gradient(90deg, #29a37a, #00e676);
+  box-shadow: 0 0 6px rgba(0, 255, 153, 0.3);
 }
 
 /* Delete button */
@@ -98,19 +113,22 @@
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  background-color: #e74c3c;
-  color: #fff;
+  background: linear-gradient(90deg, #ff3366, #cc0033);
+  color: #ffffff;
   border: none;
   padding: 8px 14px;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 3px rgba(255, 51, 102, 0.4);
 }
 
 .card-view .delete-btn:hover {
-  background-color: #c0392b;
+  background: linear-gradient(90deg, #e6004c, #b3002d);
+  box-shadow: 0 0 6px rgba(255, 51, 102, 0.3);
 }
 
 /* Form Styling */
@@ -118,7 +136,9 @@
   display: block;
   margin: 12px 0 6px;
   font-weight: 500;
-  color: #333;
+  color: #00ffcc;
+  text-shadow: 0 0 3px rgba(0, 255, 204, 0.3);
+  font-family: 'Orbitron', sans-serif;
 }
 
 .card-edit-form input,
@@ -126,16 +146,19 @@
   width: 100%;
   padding: 10px 14px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #00ffcc;
   border-radius: 8px;
-  transition: border-color 0.3s;
-  font-family: inherit;
+  background-color: #0f0f1a;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .card-edit-form input:focus,
 .card-edit-form textarea:focus {
-  border-color: #2ecc71;
-  outline: none;
+  border-color: #00ccff;
+  box-shadow: 0 0 6px rgba(0, 204, 255, 0.3);
+  background-color: #1a1a2e;
 }
 
 /* Checkbox */
@@ -144,7 +167,9 @@
   align-items: center;
   gap: 8px;
   font-weight: 500;
+  color: #b0e0ff;
   margin-top: 14px;
+  text-shadow: 0 0 3px rgba(0, 204, 255, 0.3);
 }
 
 /* Form action buttons */
@@ -161,31 +186,35 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  color: white;
-  transition: background-color 0.3s ease;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 3px rgba(0, 255, 255, 0.3);
 }
 
 .card-actions button:first-child {
-  background-color: #2ecc71;
+  background: linear-gradient(90deg, #33cc99, #00ff99);
 }
 
 .card-actions button:first-child:hover {
-  background-color: #27ae60;
+  background: linear-gradient(90deg, #29a37a, #00e676);
+  box-shadow: 0 0 6px rgba(0, 255, 153, 0.3);
 }
 
 .card-actions button:last-child {
-  background-color: #e74c3c;
+  background: linear-gradient(90deg, #ff3366, #cc0033);
 }
 
 .card-actions button:last-child:hover {
-  background-color: #c0392b;
+  background: linear-gradient(90deg, #e6004c, #b3002d);
+  box-shadow: 0 0 6px rgba(255, 51, 102, 0.3);
 }
 
 /* Add new card button */
 .add-new-card-btn {
-  background-color: #3498db;
+  background: linear-gradient(90deg, #00ccff, #00ffcc);
   border: none;
-  color: white;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1.1rem;
   padding: 14px 24px;
@@ -193,13 +222,17 @@
   cursor: pointer;
   margin: 30px auto;
   display: block;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   max-width: 400px;
   width: 100%;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 3px rgba(0, 255, 255, 0.4);
 }
 
 .add-new-card-btn:hover {
-  background-color: #2980b9;
+  background: linear-gradient(90deg, #00aaff, #00e6b3);
+  box-shadow: 0 0 8px rgba(0, 204, 255, 0.3);
+  transform: translateY(-2px);
 }
 
 /* Progress */
@@ -209,27 +242,30 @@
 
 .progress-bar {
   height: 18px;
-  background-color: #e0e0e0;
+  background-color: #0f0f1a;
   border-radius: 10px;
   overflow: hidden;
   margin-top: 6px;
+  border: 1px solid rgba(0, 255, 255, 0.15);
 }
 
 .progress-bar-fill {
   height: 100%;
-  background-color: #4caf50;
-  color: #fff;
+  background: linear-gradient(90deg, #33cc99, #00ff99);
+  color: #ffffff;
   padding-right: 8px;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   border-radius: 10px;
-  transition: width 0.3s;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 6px rgba(0, 255, 153, 0.3);
 }
 
 .progress-label {
   font-size: 0.85rem;
   margin-top: 4px;
-  color: #555;
+  color: #b0e0ff;
+  text-shadow: 0 0 3px rgba(0, 204, 255, 0.3);
 }

@@ -1,70 +1,79 @@
 .home-container {
     padding: 40px;
-    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
     min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: fadeInUp 0.8s ease-in-out;
+    animation: neonFadeIn 1s ease-in-out;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
 }
 
 .home-header {
     text-align: center;
     margin-bottom: 30px;
-    animation: floatIn 1.2s ease-in-out;
+    animation: neonFloat 1.2s ease-in-out;
 }
 
 .home-title {
     font-size: 3rem;
     font-weight: 700;
-    color: #2b2b2b;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    color: #00ffcc;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.7), 0 0 20px rgba(0, 255, 204, 0.4);
 }
 
 .home-subtitle {
     font-size: 1.2rem;
-    color: #444;
+    color: #b0e0ff;
     margin-top: 10px;
+    text-shadow: 0 0 5px rgba(0, 204, 255, 0.5);
 }
 
 .home-content {
     width: 100%;
     max-width: 1200px;
     perspective: 1000px;
-    animation: slideIn 0.8s ease-out;
+    animation: neonSlide 0.8s ease-out;
 }
 
 /* Animations */
-@keyframes fadeInUp {
+@keyframes neonFadeIn {
     from {
         opacity: 0;
         transform: translateY(40px);
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
     }
     to {
         opacity: 1;
         transform: translateY(0);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
     }
 }
 
-@keyframes floatIn {
+@keyframes neonFloat {
     from {
         opacity: 0;
         transform: translateY(-20px);
+        text-shadow: 0 0 5px rgba(0, 255, 204, 0.3);
     }
     to {
         opacity: 1;
         transform: translateY(0);
+        text-shadow: 0 0 10px rgba(0, 255, 204, 0.7), 0 0 20px rgba(0, 255, 204, 0.4);
     }
 }
 
-@keyframes slideIn {
+@keyframes neonSlide {
     from {
         opacity: 0;
         transform: rotateX(90deg);
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.1);
     }
     to {
         opacity: 1;
         transform: rotateX(0deg);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
     }
 }

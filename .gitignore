@@ -1,0 +1,21 @@
+# === Global ===
+*.env
+*.log
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# === Node/Vue (my-vue-app) ===
+my-vue-app/node_modules/
+my-vue-app/dist/
+my-vue-app/.env
+my-vue-app/.vite
+
+# === Python/Django (my_django_backend) ===
+my_django_backend/db.sqlite3
+my_django_backend/staticfiles/
+my_django_backend/.venv/
+my_django_backend/venv/
+my_django_backend/*.pyc
+my_django_backend/api/__pycache__/
+my_django_backend/my_django_backend/__pycache__/
