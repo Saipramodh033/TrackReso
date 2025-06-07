@@ -34,12 +34,8 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 }
-SECRET_KEY = 'django-insecure-bdl#ig7jj!vizc^6c@3nukst9ta9x@we#=cjp1uc1(-*n7mk%9'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -165,3 +161,4 @@ CORS_ALLOW_CREDENTIALS = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

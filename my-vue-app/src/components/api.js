@@ -3,8 +3,9 @@ import axios from 'axios';
 // axios url is customised for ease
 
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/',
+  baseURL: import.meta.env.VITE_BACKEND_URL,
 });
+
 // here you bought a token from the local storage which is bought at the login time ;
 // config is an object which represents the hhtp request , thourgh interceptor we are modifying it (add authorization header and inserting access token), after modifying you are return the request;
 
