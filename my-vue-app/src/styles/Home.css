@@ -1,22 +1,23 @@
 /* CSS Variables for Theming */
 :root {
-    --primary-gradient: linear-gradient(135deg, #4c6ef5, #a855f7);
-    --background-light: #f5f7fa;
-    --text-primary: #1a1a1a;
-    --text-secondary: #ffffff;
-    --accent-color: #4c6ef5;
-    --accent-hover: #3b82f6;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
-    --border-color: rgba(0, 0, 0, 0.1);
-    --font-primary: 'Inter', sans-serif;
+    --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
+    --background-primary: #2d3748; /* Darker background to contrast with gradient */
+    --background-secondary: #4b5db5; /* Secondary background for elements */
+    --text-primary: #ffffff; /* White text for contrast */
+    --text-secondary: #d1d5db; /* Light gray for secondary text */
+    --accent-color: #6e8efb; /* Primary accent */
+    --accent-hover: #5a7be3; /* Hover state */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --border-color: rgba(110, 142, 251, 0.3);
+    --font-primary: 'Inter', 'Orbitron', sans-serif; /* Fallback to Orbitron */
     --border-radius: 12px;
 }
 
 /* Home container */
 .home-container {
     padding: 2rem;
-    background: var(--background-light);
+    background: var(--primary-gradient, linear-gradient(135deg, #6e8efb, #a777e3)); /* Fallback gradient */
     min-height: 100vh;
     font-family: var(--font-primary);
     display: grid;
@@ -26,6 +27,8 @@
     justify-content: center;
     max-width: 1400px;
     margin: 0 auto;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
 }
 
 /* Header */
@@ -40,13 +43,14 @@
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.2;
+    text-shadow: 0 0 10px rgba(167, 119, 227, 0.7);
 }
 
 .home-subtitle {
     font-size: 1.1rem;
-    color: var(--text-primary);
-    opacity: 0.8;
+    color: var(--text-secondary);
     margin-top: 0.5rem;
+    text-shadow: 0 0 5px rgba(167, 119, 227, 0.5);
 }
 
 /* Content */

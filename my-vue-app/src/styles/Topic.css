@@ -1,21 +1,22 @@
 /* CSS Variables */
 :root {
-    --primary-gradient: linear-gradient(135deg, #4c6ef5, #a855f7);
-    --background-light: #f5f7fa;
-    --text-primary: #1a1a1a;
-    --text-secondary: #ffffff;
-    --accent-color: #4c6ef5;
-    --accent-hover: #3b82f6;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
-    --border-color: rgba(0, 0, 0, 0.1);
-    --font-primary: 'Inter', sans-serif;
+    --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
+    --background-primary: #2d3748;
+    --background-secondary: #4b5db5;
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --accent-color: #6e8efb;
+    --accent-hover: #5a7be3;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --border-color: rgba(110, 142, 251, 0.3);
+    --font-primary: 'Inter', 'Orbitron', sans-serif;
     --border-radius: 12px;
 }
 
 /* Topic Card */
 .topic-card {
-    background: #ffffff;
+    background: var(--background-secondary);
     padding: 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
@@ -40,6 +41,7 @@
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-primary);
+    text-shadow: 0 0 4px rgba(167, 119, 227, 0.4);
 }
 
 /* Buttons */
@@ -62,12 +64,12 @@
 
 .btn-toggle {
     background: var(--primary-gradient);
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
 .btn-delete {
-    background: linear-gradient(90deg, #ef4444, #b91c1c);
-    color: var(--text-secondary);
+    background: linear-gradient(90deg, #e6004c, #b3002d);
+    color: var(--text-primary);
 }
 
 .btn-toggle:hover {
@@ -77,7 +79,7 @@
 }
 
 .btn-delete:hover {
-    background: linear-gradient(90deg, #dc2626, #991b1b);
+    background: linear-gradient(90deg, #cc0033, #990026);
     transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
 }
@@ -101,7 +103,7 @@
     padding: 0.75rem;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    background-color: #ffffff;
+    background-color: var(--background-secondary);
     color: var(--text-primary);
     font-size: 0.95rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -109,13 +111,13 @@
 
 .add-card-input:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 6px rgba(76, 110, 245, 0.3);
+    box-shadow: 0 0 6px rgba(110, 142, 251, 0.3);
     outline: none;
 }
 
 .btn-add-card {
     background: var(--primary-gradient);
-    color: var(--text-secondary);
+    color: var(--text-primary);
     padding: 0.75rem 1rem;
     border: none;
     border-radius: var(--border-radius);
