@@ -1,71 +1,107 @@
-/* CSS Variables for Theming */
+/* Shared CSS Variables */
 :root {
     --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
-    --background-primary: #2d3748; /* Darker background to contrast with gradient */
-    --background-secondary: #4b5db5; /* Secondary background for elements */
-    --text-primary: #ffffff; /* White text for contrast */
-    --text-secondary: #d1d5db; /* Light gray for secondary text */
-    --accent-color: #6e8efb; /* Primary accent */
-    --accent-hover: #5a7be3; /* Hover state */
+    --background-primary: #2d3748;
+    --background-secondary: #4b5db5;
+    --text-primary: #ffffff;
+    --text-secondary: #e5e7eb; /* Lightened for better contrast */
+    --accent-color: #6e8efb;
+    --accent-hover: #5a7be3;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
     --border-color: rgba(110, 142, 251, 0.3);
-    --font-primary: 'Inter', 'Orbitron', sans-serif; /* Fallback to Orbitron */
+    --font-primary: 'Inter', 'Orbitron', sans-serif;
     --border-radius: 12px;
+    --container-padding: 1.5rem;
+    --max-width: 1200px;
+    --gap: 1rem;
+    --transition: all 0.3s ease;
+}
+
+/* Shared Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Home container */
 .home-container {
-    padding: 2rem;
-    background: var(--primary-gradient, linear-gradient(135deg, #6e8efb, #a777e3)); /* Fallback gradient */
+    padding: var(--container-padding);
+    background: var(--primary-gradient, linear-gradient(135deg, #6e8efb, #a777e3));
     min-height: 100vh;
     font-family: var(--font-primary);
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
-    align-items: start;
-    justify-content: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    overflow-y: auto;
 }
 
 /* Header */
 .home-header {
     text-align: center;
-    margin-bottom: 1.5rem;
-    animation: fadeIn 0.8s ease-in-out;
+    margin-bottom: var(--gap);
+    width: 100%;
+    max-width: var(--max-width);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--primary-gradient);
+    padding: 0.5rem 0;
 }
 
 .home-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--text-primary);
-    line-height: 1.2;
-    text-shadow: 0 0 10px rgba(167, 119, 227, 0.7);
+    text-shadow: 0 0 8px rgba(167, 119, 227, 0.6);
 }
 
 .home-subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--text-secondary);
     margin-top: 0.5rem;
-    text-shadow: 0 0 5px rgba(167, 119, 227, 0.5);
+    text-shadow: 0 0 4px rgba(167, 119, 227, 0.4);
 }
 
 /* Content */
 .home-content {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem;
+    max-width: var(--max-width);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    position: relative;
+    z-index: 2;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Login button */
+.login-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1100;
+    background: var(--accent-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    transition: var(--transition);
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.login-button:hover {
+    background: var(--accent-hover);
+}
+
+.login-button:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 /* Responsive Design */
@@ -74,21 +110,37 @@
         padding: 1rem;
     }
     .home-title {
-        font-size: 2rem;
-    }
-    .home-subtitle {
-        font-size: 1rem;
-    }
-    .home-content {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .home-title {
         font-size: 1.75rem;
     }
     .home-subtitle {
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-container {
+        padding: 0.75rem;
+    }
+    .home-title {
+        font-size: 1.5rem;
+    }
+    .home-subtitle {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .home-container {
+        padding: 0.5rem;
+    }
+    .home-title {
+        font-size: 1.25rem;
+    }
+    .home-subtitle {
+        font-size: 0.8rem;
+    }
+    .login-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
     }
 }
