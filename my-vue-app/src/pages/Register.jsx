@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../components/api";
-import "../styles/Register.css"; // New CSS file for this component
+import "../styles/Register.css";
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -9,6 +9,7 @@ function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
@@ -39,6 +40,9 @@ function Register() {
         }
     };
 
+    const toggleEye = () => setShowPassword(!showPassword);
+    const eyeIcon = showPassword ? "🔒" : "👁‍🗨";
+
     return (
         <div className="login-wrapper">
             <div className="login-left">
@@ -57,48 +61,66 @@ function Register() {
                     <h2>Register</h2>
                     <form onSubmit={handleRegister}>
                         <div className="input-group">
-                            <label htmlFor="username">Username</label>
+                            <label>Username</label>
                             <input
                                 type="text"
-                                id="username"
-                                name="username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required
                             />
                         </div>
                         <div className="input-group">
-                            <label htmlFor="email">Email</label>
+                            <label>Email</label>
                             <input
                                 type="email"
-                                id="email"
-                                name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                         </div>
-                        <div className="input-group">
-                            <label htmlFor="password">Password</label>
+                        <div className="input-group" style={{ position: "relative" }}>
+                            <label>Password</label>
                             <input
-                                type="password"
-                                id="password"
-                                name="password"
+                                type={showPassword ? "text" : "password"}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
+                            <span
+                                onClick={toggleEye}
+                                style={{
+                                    position: "absolute",
+                                    right: "10px",
+                                    top: "36px",
+                                    cursor: "pointer",
+                                    userSelect: "none"
+                                }}
+                                title="Toggle Password"
+                            >
+                                {eyeIcon}
+                            </span>
                         </div>
-                        <div className="input-group">
-                            <label htmlFor="confirm-password">Confirm Password</label>
+                        <div className="input-group" style={{ position: "relative" }}>
+                            <label>Confirm Password</label>
                             <input
-                                type="password"
-                                id="confirm-password"
-                                name="confirmPassword"
+                                type={showPassword ? "text" : "password"}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
                             />
+                            <span
+                                onClick={toggleEye}
+                                style={{
+                                    position: "absolute",
+                                    right: "10px",
+                                    top: "36px",
+                                    cursor: "pointer",
+                                    userSelect: "none"
+                                }}
+                                title="Toggle Password"
+                            >
+                                {eyeIcon}
+                            </span>
                         </div>
                         {error && <p className="error-message">{error}</p>}
                         <button type="submit" className="login-btn">Register</button>

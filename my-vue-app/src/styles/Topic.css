@@ -1,20 +1,22 @@
 /* Topic Card */
 .topic-card {
-    background: var(--background-secondary);
-    padding: 0.75rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
+    background: #b8e5f3d1;
+    padding: 2%;
+    border-radius: var(--border-radius, 20px);
+    box-shadow: var(--shadow-sm, 0 4px 12px rgba(0,0,0,0.1));
+    border: 1px solid var(--border-color, rgba(47, 159, 224, 0.3));
     display: flex;
     flex-direction: column;
-    gap: var(--gap);
+    gap: var(--gap, 1rem);
     position: relative;
     z-index: 1;
+    padding-bottom: 0.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .topic-card:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md, 0 8px 30px rgba(0,0,0,0.15));
 }
 
 /* Header */
@@ -22,12 +24,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: black;
 }
 
 .topic-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-primary, black);
     text-shadow: 0 0 4px rgba(167, 119, 227, 0.4);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -44,24 +47,24 @@
 .btn-delete {
     padding: 0.4rem 0.8rem;
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius, 20px);
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
-    font-family: var(--font-primary);
-    transition: var(--transition);
+    font-family: var(--font-primary, 'Segoe UI', sans-serif);
+    transition: background 0.3s ease, transform 0.2s ease;
     min-width: 44px;
     min-height: 44px;
 }
 
 .btn-toggle {
-    background: var(--primary-gradient);
-    color: var(--text-primary);
+    background: var(--primary-gradient, linear-gradient(135deg, #6e8efb, #a777e3));
+    color: var(--text-primary, #f6f9fa);
 }
 
 .btn-delete {
     background: linear-gradient(90deg, #e6004c, #b3002d);
-    color: var(--text-primary);
+    color: var(--text-primary, #f6f9fa);
 }
 
 .btn-toggle:hover,
@@ -70,7 +73,7 @@
 }
 
 .btn-toggle:hover {
-    background: var(--accent-hover);
+    background: var(--accent-hover, #1d7f90);
 }
 
 .btn-delete:hover {
@@ -79,7 +82,7 @@
 
 .btn-toggle:focus,
 .btn-delete:focus {
-    outline: 3px solid var(--accent-color);
+    outline: 3px solid var(--accent-color, #2f9fb0);
     outline-offset: 2px;
 }
 
@@ -93,43 +96,43 @@
 .add-card-input {
     flex: 1;
     padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background-color: var(--background-secondary);
-    color: var(--text-primary);
+    border: 1px solid var(--border-color, rgba(47, 159, 224, 0.3));
+    border-radius: var(--border-radius, 20px);
+    background-color: var(--background-secondary, #e3f0fb);
+    color: var(--text-primary, #03405a);
     font-size: 0.85rem;
-    transition: var(--transition);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     min-height: 44px;
 }
 
 .add-card-input:focus {
-    border-color: var(--accent-color);
+    border-color: var(--accent-color, #2f9fb0);
     box-shadow: 0 0 6px rgba(110, 142, 251, 0.3);
     outline: none;
 }
 
 .btn-add-card {
-    background: var(--primary-gradient);
-    color: var(--text-primary);
+    background: var(--primary-gradient, linear-gradient(135deg, #6e8efb, #a777e3));
+    color: var(--text-primary, #f6f9fa);
     padding: 0.5rem 0.8rem;
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius, 20px);
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
-    font-family: var(--font-primary);
-    transition: var(--transition);
+    font-family: var(--font-primary, 'Segoe UI', sans-serif);
+    transition: background 0.3s ease, transform 0.2s ease;
     min-width: 44px;
     min-height: 44px;
 }
 
 .btn-add-card:hover {
-    background: var(--accent-hover);
+    background: var(--accent-hover, #1d7f90);
     transform: translateY(-1px);
 }
 
 .btn-add-card:focus {
-    outline: 3px solid var(--accent-color);
+    outline: 3px solid var(--accent-color, #2f9fb0);
     outline-offset: 2px;
 }
 
@@ -137,7 +140,7 @@
 .cards-list {
     display: flex;
     flex-direction: column;
-    gap: var(--gap);
+    gap: var(--gap, 1rem);
 }
 
 /* Responsive Design */

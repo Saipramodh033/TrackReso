@@ -86,7 +86,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     font-size: 0.9rem;
-    background-color: var(--background-primary);
+    background-color: #004d76;
     color: var(--text-primary);
     transition: var(--transition);
     min-height: 44px;

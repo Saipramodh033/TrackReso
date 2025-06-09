@@ -1,59 +1,51 @@
 /* Card Container */
 .card-container {
-    background: var(--primary-gradient, linear-gradient(135deg, #6e8efb, #a777e3));
-    border-radius: var(--border-radius);
+    background: var(--primary-gradient, linear-gradient(135deg, #c5c8d8, #c2a9e0)); /* slightly lighter */
+    border-radius:12px;
     box-shadow: var(--shadow-sm);
-    padding: 0.75rem;
-    margin: 0.5rem 0;
-    width: 100%;
+    padding: 1rem;
+    margin: 0.75rem 0;
+    width: 98%;
     max-width: var(--max-width);
     transition: var(--transition);
     position: relative;
     z-index: 2;
-    max-height: 140px; /* Further reduced height */
+    max-height: 100%;
     overflow: hidden;
 }
 
+/* Hover effect */
 .card-container:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
 /* Subheading */
 .card-subheading {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.3rem;
-    text-shadow: 0 0 4px rgba(167, 119, 227, 0.4);
+    margin-bottom: 0.6rem;
+    border-bottom: 1.5px solid var(--border-color);
+    padding-bottom: 0.4rem;
+    text-shadow: 0 0 5px rgba(167, 119, 227, 0.45);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-/* Card View */
-.card-view {
-    padding: 0.5rem;
-    background: var(--background-secondary);
-    border-radius: var(--border-radius);
-    position: relative;
-    overflow: hidden;
-    max-height: 90px; /* Adjusted for reduced card height */
-}
-
+/* Card View Paragraphs */
 .card-view p {
-    background: var(--background-primary);
-    padding: 0.4rem 0.6rem;
+    background: #11737a; /* slightly brighter */
+    padding: 0.45rem 0.6rem;
     border-radius: var(--border-radius);
-    margin: 0.3rem 0;
-    font-size: 0.85rem;
+    margin: 0.35rem 0;
+    font-size: 0.9rem;
     color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    border: 1px solid var(--border-color);
+    gap: 0.7rem;
+    border: 1.2px solid var(--border-color);
     transition: var(--transition);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -65,26 +57,29 @@
 }
 
 .card-view p strong {
-    width: 70px;
+    width: 75px;
     font-weight: 600;
     color: var(--text-primary);
-    text-shadow: 0 0 3px rgba(167, 119, 227, 0.3);
+    text-shadow: 0 0 4px rgba(167, 119, 227, 0.35);
+    height: 32px;
+    text-align: center;
 }
 
-/* Action Buttons */
+/* Action Buttons Container */
 .card-view .top-right-actions {
     position: absolute;
-    top: 0.3rem;
-    right: 0.3rem;
+    top: 0.35rem;
+    right: 0.35rem;
     display: flex;
-    gap: 0.3rem;
+    gap: 0.4rem;
 }
 
+/* Star Button */
 .card-view .star-btn {
     background: none;
     border: none;
-    font-size: 1rem;
-    color: #f59e0b;
+    font-size: 1.6rem;
+    color: #fbbf24; /* warmer gold */
     cursor: pointer;
     transition: var(--transition);
     min-width: 44px;
@@ -95,8 +90,8 @@
 }
 
 .card-view .star-btn:hover {
-    transform: scale(1.05);
-    color: #d97706;
+    transform: scale(1.1);
+    color: #b45309;
 }
 
 .card-view .star-btn:focus {
@@ -104,19 +99,20 @@
     outline-offset: 2px;
 }
 
+/* Edit Button */
 .card-view .edit-btn {
-    background: var(--primary-gradient);
     color: var(--text-primary);
     border: none;
-    padding: 0.3rem 0.6rem;
+    padding: 0.35rem 0.7rem;
     border-radius: var(--border-radius);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     font-family: var(--font-primary);
     transition: var(--transition);
-    min-width: 44px;
+    min-width: 85px;
     min-height: 44px;
+    background: transparent;
 }
 
 .card-view .edit-btn:hover {
@@ -129,21 +125,22 @@
     outline-offset: 2px;
 }
 
+/* Delete Button */
 .card-view .delete-btn {
     position: absolute;
-    bottom: 0.3rem;
-    right: 0.3rem;
+    bottom: 0.35rem;
+    right: 0.35rem;
     background: linear-gradient(90deg, #e6004c, #b3002d);
     color: var(--text-primary);
     border: none;
-    padding: 0.3rem 0.6rem;
+    padding: 0.35rem 0.7rem;
     border-radius: var(--border-radius);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     font-family: var(--font-primary);
     transition: var(--transition);
-    min-width: 44px;
+    min-width: 50px;
     min-height: 44px;
 }
 
@@ -160,32 +157,32 @@
 /* Form Styling */
 .card-edit-form label {
     display: block;
-    margin: 0.3rem 0 0.2rem;
-    font-weight: 500;
+    margin: 0.4rem 0 0.3rem;
+    font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 .card-edit-form input,
 .card-edit-form textarea {
     width: 100%;
-    padding: 0.4rem;
-    font-size: 0.85rem;
-    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    border: 1.5px solid var(--border-color);
     border-radius: var(--border-radius);
-    background-color: var(--background-secondary);
+    background-color: #1f6f76; /* lighter */
     color: var(--text-primary);
     font-family: var(--font-primary);
     transition: var(--transition);
     resize: none;
-    max-height: 50px;
+    max-height: 220px;
     overflow-y: auto;
 }
 
 .card-edit-form input:focus,
 .card-edit-form textarea:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 6px rgba(110, 142, 251, 0.3);
+    box-shadow: 0 0 8px rgba(110, 142, 251, 0.35);
     outline: none;
 }
 
@@ -193,23 +190,23 @@
 .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    font-weight: 500;
+    gap: 0.35rem;
+    font-weight: 600;
     color: var(--text-primary);
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
 }
 
 /* Form Actions */
 .card-actions {
-    margin-top: 0.5rem;
+    margin-top: 0.6rem;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .card-actions button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     border-radius: var(--border-radius);
     border: none;
@@ -217,7 +214,7 @@
     color: var(--text-primary);
     font-family: var(--font-primary);
     transition: var(--transition);
-    min-width: 44px;
+    min-width: 48px;
     min-height: 44px;
 }
 
@@ -250,13 +247,13 @@
     border: none;
     color: var(--text-primary);
     font-weight: 600;
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
     border-radius: var(--border-radius);
     cursor: pointer;
-    margin: 0.5rem auto;
+    margin: 0.75rem auto;
     display: block;
-    max-width: 250px;
+    max-width: 280px;
     width: 100%;
     font-family: var(--font-primary);
     transition: var(--transition);
@@ -275,98 +272,104 @@
 
 /* Progress */
 .progress-display {
-    margin-top: 0.5rem;
+    margin-top: 0.15rem;
 }
 
 .progress-bar {
-    height: 10px;
+    height: 12px;
     background-color: var(--background-primary);
     border-radius: var(--border-radius);
     overflow: hidden;
-    margin-top: 0.2rem;
-    border: 1px solid var(--border-color);
+    margin-top: 0.3rem;
+    border: 1.5px solid var(--border-color);
 }
 
 .progress-bar-fill {
     height: 100%;
     background: var(--primary-gradient);
     color: var(--text-primary);
-    padding-right: 0.3rem;
+    padding-right: 0.4rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     border-radius: var(--border-radius);
-    transition: width 0.3s ease;
+    transition: width 0.35s ease;
 }
 
 .progress-label {
-    font-size: 0.8rem;
-    margin-top: 0.2rem;
+    font-size: 0.65rem;
+    margin-top: 0.3rem;
     color: var(--text-primary);
-    text-shadow: 0 0 3px rgba(167, 119, 227, 0.3);
+    text-shadow: 0 0 4px rgba(167, 119, 227, 0.35);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .card-container {
-        padding: 0.5rem;
-        max-height: 120px;
+        padding: 0.65rem;
+        max-height: 140px;
     }
     .card-subheading {
         font-size: 1rem;
+        margin-bottom: 0.5rem;
     }
     .card-view {
-        padding: 0.4rem;
-        max-height: 80px;
+        padding: 0.5rem;
+        max-height: 100px;
     }
     .card-view p {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
+    }
+    .card-edit-form input,
+    .card-edit-form textarea {
+        font-size: 0.85rem;
+        padding: 0.45rem;
     }
 }
 
 @media (max-width: 480px) {
     .card-container {
-        margin: 0.3rem 0;
-        max-height: 100px;
+        margin: 0.4rem 0;
+        max-height: 120px;
     }
     .card-view p {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
     .card-view .edit-btn,
     .card-view .delete-btn,
     .card-actions button {
-        padding: 0.3rem 0.5rem;
-        font-size: 0.75rem;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.8rem;
     }
     .add-new-card-btn {
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
     }
 }
 
 @media (max-width: 360px) {
     .card-container {
-        max-height: 90px;
+        max-height: 100px;
     }
     .card-subheading {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
     .card-view {
-        max-height: 70px;
+        max-height: 80px;
     }
     .card-view p {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
     }
     .card-edit-form input,
     .card-edit-form textarea {
         font-size: 0.75rem;
-        padding: 0.3rem;
+        padding: 0.35rem;
     }
     .card-view .edit-btn,
     .card-view .delete-btn,
     .card-actions button {
-        padding: 0.2rem 0.4rem;
+        padding: 0.3rem 0.5rem;
         font-size: 0.7rem;
     }
 }
