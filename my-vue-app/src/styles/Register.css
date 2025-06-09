@@ -164,14 +164,23 @@
         flex: none;
         width: 100%;
         height: auto;
+    }
+    .login-left {
         padding: 1rem;
+        background: var(--primary-gradient);
     }
     .login-left .brand h1 {
-        font-size: 2rem;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
     }
     .login-left .brand p {
         font-size: 1rem;
         max-width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .login-right {
+        padding: 0.5rem 1rem;
+        background: var(--primary-gradient);
     }
     .login-box {
         padding: 1.5rem;
@@ -183,15 +192,17 @@
 }
 
 @media (max-width: 480px) {
-    .login-left,
-    .login-right {
+    .login-left {
         padding: 0.75rem;
     }
     .login-left .brand h1 {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
     .login-left .brand p {
         font-size: 0.9rem;
+    }
+    .login-right {
+        padding: 0.5rem 0.75rem;
     }
     .login-box {
         padding: 1rem;
@@ -211,15 +222,17 @@
 }
 
 @media (max-width: 360px) {
-    .login-left,
-    .login-right {
+    .login-left {
         padding: 0.5rem;
     }
     .login-left .brand h1 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
     }
     .login-left .brand p {
         font-size: 0.85rem;
+    }
+    .login-right {
+        padding: 0.5rem;
     }
     .login-box {
         padding: 0.75rem;

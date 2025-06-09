@@ -88,6 +88,11 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    display: none; /* Hidden by default when topic is collapsed */
+}
+
+.topic-card.expanded .add-card {
+    display: flex; /* Show when topic is expanded */
 }
 
 .add-card-input {
@@ -135,9 +140,13 @@
 
 /* Cards List */
 .cards-list {
-    display: flex;
+    display: none; /* Hidden by default when topic is collapsed */
     flex-direction: column;
     gap: var(--gap);
+}
+
+.topic-card.expanded .cards-list {
+    display: flex; /* Show when topic is expanded */
 }
 
 /* Responsive Design */

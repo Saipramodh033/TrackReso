@@ -37,7 +37,7 @@
     text-overflow: ellipsis;
 }
 
-/* Right section: Login Form */
+/* Right section: Register Form */
 .login-right {
     flex: 1;
     display: flex;
@@ -50,7 +50,7 @@
 
 .login-box {
     background: var(--background-secondary, #4b5db5);
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
     width: 100%;
@@ -164,17 +164,26 @@
         flex: none;
         width: 100%;
         height: auto;
+    }
+    .login-left {
         padding: 1rem;
+        background: var(--primary-gradient);
     }
     .login-left .brand h1 {
-        font-size: 2rem;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
     }
     .login-left .brand p {
         font-size: 1rem;
         max-width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .login-right {
+        padding: 0.5rem 1rem;
+        background: var(--primary-gradient);
     }
     .login-box {
-        padding: 1.25rem;
+        padding: 1.5rem;
         max-width: 90%;
     }
     .login-box h2 {
@@ -183,15 +192,17 @@
 }
 
 @media (max-width: 480px) {
-    .login-left,
-    .login-right {
+    .login-left {
         padding: 0.75rem;
     }
     .login-left .brand h1 {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
     .login-left .brand p {
         font-size: 0.9rem;
+    }
+    .login-right {
+        padding: 0.5rem 0.75rem;
     }
     .login-box {
         padding: 1rem;
@@ -211,15 +222,17 @@
 }
 
 @media (max-width: 360px) {
-    .login-left,
-    .login-right {
+    .login-left {
         padding: 0.5rem;
     }
     .login-left .brand h1 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
     }
     .login-left .brand p {
         font-size: 0.85rem;
+    }
+    .login-right {
+        padding: 0.5rem;
     }
     .login-box {
         padding: 0.75rem;
