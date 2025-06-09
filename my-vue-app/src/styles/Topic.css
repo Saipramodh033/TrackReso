@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: var(--gap);
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .topic-card:hover {
@@ -88,11 +88,6 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
-    display: none; /* Hidden by default when topic is collapsed */
-}
-
-.topic-card.expanded .add-card {
-    display: flex; /* Show when topic is expanded */
 }
 
 .add-card-input {
@@ -140,13 +135,9 @@
 
 /* Cards List */
 .cards-list {
-    display: none; /* Hidden by default when topic is collapsed */
+    display: flex;
     flex-direction: column;
     gap: var(--gap);
-}
-
-.topic-card.expanded .cards-list {
-    display: flex; /* Show when topic is expanded */
 }
 
 /* Responsive Design */
