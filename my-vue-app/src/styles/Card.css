@@ -1,271 +1,325 @@
-/* Card container */
+/* CSS Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #4c6ef5, #a855f7);
+    --background-light: #f5f7fa;
+    --text-primary: #1a1a1a;
+    --text-secondary: #ffffff;
+    --accent-color: #4c6ef5;
+    --accent-hover: #3b82f6;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --font-primary: 'Inter', sans-serif;
+    --border-radius: 12px;
+}
+
+/* Card Container */
 .card-container {
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
-  border-radius: 16px;
-  box-shadow: 0 0 8px rgba(110, 142, 251, 0.15), inset 0 0 3px rgba(110, 142, 251, 0.05);
-  padding: 16px;
-  margin: 20px auto;
-  width: 100%;
-  max-width: 1200px; /* Increased for more horizontal layout */
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  border: 1px solid rgba(110, 142, 251, 0.2);
+    background: #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 1rem;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 1400px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .card-container:hover {
-  box-shadow: 0 0 12px rgba(110, 142, 251, 0.25), inset 0 0 5px rgba(110, 142, 251, 0.1);
-  transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 /* Subheading */
 .card-subheading {
-  font-size: 1.3rem; /* Slightly reduced font size */
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 12px; /* Reduced margin */
-  border-bottom: 1px solid rgba(110, 142, 251, 0.2);
-  padding-bottom: 6px; /* Reduced padding */
-  text-shadow: 0 0 4px rgba(167, 119, 227, 0.4);
-  font-family: 'Orbitron', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
 }
 
-/* Card content layout */
+/* Card View */
 .card-view {
-  position: relative;
-  padding: 0.8rem 1.2rem 2.5rem; /* Reduced padding for less height */
-  background: linear-gradient(135deg, #5a7be3, #8f5dd1);
-  border-radius: 12px;
-  box-shadow: inset 0 0 3px rgba(110, 142, 251, 0.1);
+    padding: 0.75rem;
+    background: #f9fafb;
+    border-radius: var(--border-radius);
+    position: relative;
 }
 
-/* Info blocks */
 .card-view p {
-  background: #4b5db5;
-  padding: 10px 14px; /* Slightly reduced padding */
-  border-radius: 10px;
-  margin: 8px 0; /* Reduced margin */
-  font-size: 0.95rem; /* Slightly reduced font size */
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Slightly reduced gap */
-  border: 1px solid rgba(110, 142, 251, 0.15);
-  transition: box-shadow 0.3s ease;
+    background: #ffffff;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s ease;
 }
 
 .card-view p:hover {
-  box-shadow: 0 0 6px rgba(110, 142, 251, 0.2);
+    box-shadow: var(--shadow-sm);
 }
 
 .card-view p strong {
-  width: 100px; /* Reduced width for more compact layout */
-  font-weight: 600;
-  color: #ffffff;
-  text-shadow: 0 0 3px rgba(167, 119, 227, 0.3);
+    width: 80px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
-/* Action buttons wrapper (star + edit) */
+/* Action Buttons */
 .card-view .top-right-actions {
-  position: absolute;
-  top: 0.8rem;
-  right: 0.8rem;
-  display: flex;
-  gap: 8px;
-  z-index: 10;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
-/* Star button */
 .card-view .star-btn {
-  background: none;
-  border: none;
-  font-size: 1.4rem; /* Slightly reduced */
-  color: #ffcc00;
-  cursor: pointer;
-  transition: transform 0.2s, text-shadow 0.2s;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: #f59e0b;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .card-view .star-btn:hover {
-  transform: scale(1.2);
-  text-shadow: 0 0 6px rgba(255, 204, 0, 0.5);
+    transform: scale(1.1);
+    color: #d97706;
 }
 
-/* Edit button */
+.card-view .star-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
 .card-view .edit-btn {
-  background: linear-gradient(90deg, #6e8efb, #a777e3);
-  color: #ffffff;
-  border: none;
-  padding: 6px 10px; /* Reduced padding */
-  border-radius: 8px;
-  font-size: 0.85rem; /* Slightly reduced */
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 3px rgba(110, 142, 251, 0.4);
+    background: var(--primary-gradient);
+    color: var(--text-secondary);
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-view .edit-btn:hover {
-  background: linear-gradient(90deg, #5a7be3, #8f5dd1);
-  box-shadow: 0 0 6px rgba(110, 142, 251, 0.3);
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
-/* Delete button */
+.card-view .edit-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
 .card-view .delete-btn {
-  position: absolute;
-  bottom: 0.8rem;
-  right: 0.8rem;
-  background: linear-gradient(90deg, #e6004c, #b3002d);
-  color: #ffffff;
-  border: none;
-  padding: 6px 12px; /* Reduced padding */
-  border-radius: 8px;
-  font-size: 0.85rem; /* Slightly reduced */
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 3px rgba(255, 51, 102, 0.4);
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: linear-gradient(90deg, #ef4444, #b91c1c);
+    color: var(--text-secondary);
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-view .delete-btn:hover {
-  background: linear-gradient(90deg, #cc0033, #990026);
-  box-shadow: 0 0 6px rgba(255, 51, 102, 0.3);
+    background: linear-gradient(90deg, #dc2626, #991b1b);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.card-view .delete-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 /* Form Styling */
 .card-edit-form label {
-  display: block;
-  margin: 10px 0 5px; /* Reduced margin */
-  font-weight: 500;
-  color: #ffffff;
-  text-shadow: 0 0 3px rgba(167, 119, 227, 0.3);
-  font-family: 'Orbitron', sans-serif;
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: 500;
+    color: var(--text-primary);
 }
 
 .card-edit-form input,
 .card-edit-form textarea {
-  width: 100%;
-  padding: 8px 12px; /* Reduced padding */
-  font-size: 0.95rem; /* Slightly reduced */
-  border: 1px solid #a777e3;
-  border-radius: 8px;
-  background-color: #4b5db5;
-  color: #ffffff;
-  transition: all 0.3s ease;
-  font-family: 'Orbitron', sans-serif;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: #ffffff;
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-edit-form input:focus,
 .card-edit-form textarea:focus {
-  border-color: #6e8efb;
-  box-shadow: 0 0 6px rgba(110, 142, 251, 0.3);
-  background-color: #5a6cc9;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 6px rgba(76, 110, 245, 0.3);
+    outline: none;
 }
 
 /* Checkbox */
 .checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 6px; /* Reduced gap */
-  font-weight: 500;
-  color: #ffffff;
-  margin-top: 12px; /* Slightly reduced */
-  text-shadow: 0 0 3px rgba(110, 142, 251, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-top: 0.75rem;
 }
 
-/* Form action buttons */
+/* Form Actions */
 .card-actions {
-  margin-top: 20px; /* Reduced margin */
-  display: flex;
-  gap: 12px; /* Reduced gap */
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
 }
 
 .card-actions button {
-  padding: 8px 16px; /* Reduced padding */
-  font-size: 0.95rem; /* Slightly reduced */
-  font-weight: 600;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  color: #ffffff;
-  transition: all 0.3s ease;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 3px rgba(110, 142, 251, 0.3);
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-actions button:first-child {
-  background: linear-gradient(90deg, #6e8efb, #a777e3);
+    background: var(--primary-gradient);
 }
 
 .card-actions button:first-child:hover {
-  background: linear-gradient(90deg, #5a7be3, #8f5dd1);
-  box-shadow: 0 0 6px rgba(110, 142, 251, 0.3);
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 .card-actions button:last-child {
-  background: linear-gradient(90deg, #e6004c, #b3002d);
+    background: linear-gradient(90deg, #ef4444, #b91c1c);
 }
 
 .card-actions button:last-child:hover {
-  background: linear-gradient(90deg, #cc0033, #990026);
-  box-shadow: 0 0 6px rgba(255, 51, 102, 0.3);
+    background: linear-gradient(90deg, #dc2626, #991b1b);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
-/* Add new card button */
+.card-actions button:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Add New Card Button */
 .add-new-card-btn {
-  background: linear-gradient(90deg, #6e8efb, #a777e3);
-  border: none;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1rem; /* Slightly reduced */
-  padding: 12px 20px; /* Reduced padding */
-  border-radius: 12px;
-  cursor: pointer;
-  margin: 20px auto; /* Reduced margin */
-  display: block;
-  transition: all 0.3s ease;
-  max-width: 350px; /* Slightly reduced */
-  width: 100%;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 3px rgba(110, 142, 251, 0.4);
+    background: var(--primary-gradient);
+    border: none;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin: 1rem auto;
+    display: block;
+    max-width: 300px;
+    width: 100%;
+    font-family: var(--font-primary);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .add-new-card-btn:hover {
-  background: linear-gradient(90deg, #5a7be3, #8f5dd1);
-  box-shadow: 0 0 8px rgba(110, 142, 251, 0.3);
-  transform: translateY(-2px);
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.add-new-card-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 /* Progress */
 .progress-display {
-  margin-top: 10px; /* Reduced margin */
+    margin-top: 0.75rem;
 }
 
 .progress-bar {
-  height: 16px; /* Slightly reduced height */
-  background-color: #4b5db5;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 5px; /* Slightly reduced */
-  border: 1px solid rgba(110, 142, 251, 0.15);
+    height: 12px;
+    background-color: #e5e7eb;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-top: 0.25rem;
+    border: 1px solid var(--border-color);
 }
 
 .progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #6e8efb, #a777e3);
-  color: #ffffff;
-  padding-right: 6px; /* Slightly reduced */
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-radius: 10px;
-  transition: width 0.3s ease;
-  box-shadow: 0 0 6px rgba(110, 142, 251, 0.3);
+    height: 100%;
+    background: var(--primary-gradient);
+    color: var(--text-secondary);
+    padding-right: 0.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: var(--border-radius);
+    transition: width 0.3s ease;
 }
 
 .progress-label {
-  font-size: 0.8rem; /* Slightly reduced */
-  margin-top: 3px; /* Slightly reduced */
-  color: #ffffff;
-  text-shadow: 0 0 3px rgba(167, 119, 227, 0.3);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card-container {
+        padding: 0.75rem;
+    }
+    .card-subheading {
+        font-size: 1.1rem;
+    }
+    .card-view {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        margin: 0.5rem;
+    }
+    .card-view p {
+        font-size: 0.9rem;
+    }
+    .card-view .edit-btn,
+    .card-view .delete-btn,
+    .card-actions button {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
 }
