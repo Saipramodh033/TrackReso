@@ -1,19 +1,19 @@
 .topic-manager-container {
-    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(110, 142, 251, 0.2), inset 0 0 10px rgba(110, 142, 251, 0.1);
     animation: neonGlow 1.5s ease-in-out;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(110, 142, 251, 0.3);
 }
 
 .topic-manager-title {
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 20px;
-    color: #00ffcc;
-    text-shadow: 0 0 10px rgba(0, 255, 204, 0.7);
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(167, 119, 227, 0.7);
     font-family: 'Orbitron', sans-serif;
 }
 
@@ -27,36 +27,36 @@
 
 .topic-manager-input {
     padding: 12px 20px;
-    border: 2px solid #00ffcc;
+    border: 2px solid #a777e3;
     border-radius: 10px;
     width: 300px;
     font-size: 1rem;
-    background-color: #0f0f1a;
+    background-color: #4b5db5;
     color: #ffffff;
     transition: all 0.3s ease;
 }
 
 .topic-manager-input:focus {
-    border-color: #00ccff;
-    box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
-    background-color: #1a1a2e;
+    border-color: #6e8efb;
+    box-shadow: 0 0 15px rgba(110, 142, 251, 0.5);
+    background-color: #5a6cc9;
 }
 
 .topic-manager-add-button {
     padding: 12px 20px;
-    background: linear-gradient(90deg, #00ccff, #00ffcc);
+    background: linear-gradient(90deg, #6e8efb, #a777e3);
     color: #ffffff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+    text-shadow: 0 0 5px rgba(110, 142, 251, 0.7);
     font-family: 'Orbitron', sans-serif;
 }
 
 .topic-manager-add-button:hover {
-    background: linear-gradient(90deg, #00aaff, #00e6b3);
-    box-shadow: 0 0 15px rgba(0, 204, 255, 0.6);
+    background: linear-gradient(90deg, #5a7be3, #8f5dd1);
+    box-shadow: 0 0 15px rgba(110, 142, 251, 0.6);
     transform: translateY(-2px);
 }
 
@@ -71,11 +71,11 @@
     from {
         opacity: 0;
         transform: translateY(20px);
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 10px rgba(110, 142, 251, 0.1);
     }
     to {
         opacity: 1;
         transform: translateY(0);
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(110, 142, 251, 0.2), inset 0 0 10px rgba(110, 142, 251, 0.1);
     }
 }
