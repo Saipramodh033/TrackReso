@@ -1,20 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopicManager from '../components/TopicManager';
-import '../styles/Home.css'; // Keep your custom home styles here
+import '../styles/Home.css';
 
 function Home() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // You can also clear localStorage here or rely on /logout route
         localStorage.clear();
         navigate('/login');
     };
 
     return (
         <div className="home-container">
-            <button className="logout-btn" onClick={handleLogout}>
+            <button className="auth-button" onClick={handleLogout}>
                 Logout
             </button>
 
