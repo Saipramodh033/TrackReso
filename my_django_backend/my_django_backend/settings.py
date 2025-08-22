@@ -109,11 +109,27 @@ WSGI_APPLICATION = 'my_django_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Check if we want to use remote database
+USE_REMOTE_DB = config('USE_REMOTE_DB', default=False, cast=bool)
 
-
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
-}
+if USE_REMOTE_DB:
+    # Use remote PostgreSQL database
+    DATABASES = {
+        'default': dj_database_url.config(conn_max_age=600)
+    }
+elif DEBUG:
+    # Use SQLite for local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    # Production PostgreSQL
+    DATABASES = {
+        'default': dj_database_url.config(conn_max_age=600)
+    }
 
 
 
@@ -160,9 +176,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOWED_ORIGINS = [
-    "https://learning-hive-82eb.onrender.com",  # Your deployed React frontend
-]
+# Environment-based CORS configuration
+if DEBUG:
+    # Development: Allow local React dev server
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:5173",  # Local React development server
+        "http://127.0.0.1:5173",  # Alternative local address
+        "http://localhost:3000",  # Alternative React port
+    ]
+else:
+    # Production: Allow only deployed frontend
+    CORS_ALLOWED_ORIGINS = [
+        "https://learning-hive-82eb.onrender.com",  # Your deployed React frontend
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
 
