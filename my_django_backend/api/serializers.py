@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Topic, Card
+from .models import Topic, Card, PeerRelationship, TopicShare, ShareAccess
 from django.contrib.auth.models import User
 
 class CardSerializer(serializers.ModelSerializer):
@@ -12,7 +12,8 @@ class TopicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Topic
-        fields = '__all__'
+        fields = ['id', 'name', 'collapsed', 'cards']  # Exclude user field
+        read_only_fields = ['id']
 
     def create(self, validated_data):
         cards_data = validated_data.pop('cards', [])
@@ -37,4 +38,36 @@ class UserSerializer(serializers.ModelSerializer):
             user.set_password(password)
         user.save()
         return user
+
+class UserPublicSerializer(serializers.ModelSerializer):
+    """Serializer for public user information (for peer search)"""
+    class Meta:
+        model = User
+        fields = ["id", "username"]
+
+class PeerRelationshipSerializer(serializers.ModelSerializer):
+    requester = UserPublicSerializer(read_only=True)
+    addressee = UserPublicSerializer(read_only=True)
+    
+    class Meta:
+        model = PeerRelationship
+        fields = ['id', 'requester', 'addressee', 'status', 'created_at', 'updated_at']
+
+class TopicShareSerializer(serializers.ModelSerializer):
+    topic = TopicSerializer(read_only=True)
+    peer = UserPublicSerializer(read_only=True)
+    owner = UserPublicSerializer(read_only=True)
+    
+    class Meta:
+        model = TopicShare
+        fields = ['id', 'topic', 'owner', 'peer', 'permission_level', 'shared_at', 'is_active']
+
+class SharedTopicSerializer(serializers.ModelSerializer):
+    """Serializer for topics shared with the current user"""
+    cards = CardSerializer(many=True, read_only=True)
+    owner = UserPublicSerializer(source='user', read_only=True)  # Map 'user' field to 'owner'
+    
+    class Meta:
+        model = Topic
+        fields = ['id', 'name', 'cards', 'owner']
 

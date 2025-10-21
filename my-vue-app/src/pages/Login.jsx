@@ -21,7 +21,7 @@ function Login() {
             const response = await api.post("/token/", { username, password });
             localStorage.setItem(ACCESS_TOKEN, response.data.access);
             localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
-            navigate("/topics");
+            navigate("/dashboard");
         } catch (err) {
             setError(err.response?.data?.detail || "Failed to login. Please try again.");
         } finally {
@@ -35,7 +35,7 @@ function Login() {
         <div className="login-wrapper">
             <div className="login-box">
                 <div className="brand-header">
-                    <h1>StudySpace</h1>
+                    <h1>TrackReso</h1>
                     <p>Your personal learning dashboard</p>
                 </div>
                 <h2>Sign In</h2>

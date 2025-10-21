@@ -1,0 +1,29 @@
+/* Main Layout - Crystal Theme Styles */
+
+.crystal-main-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--crystal-main-bg);
+}
+
+.crystal-main-layout-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--crystal-main-bg);
+  transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .crystal-main-layout-content {
+    margin-left: 0;
+  }
+}
+
+/* Page Container for all pages */
+.crystal-page-container {
+  min-height: 100vh;
+  background: var(--crystal-main-bg);
+  padding: var(--crystal-spacing-lg);
+}

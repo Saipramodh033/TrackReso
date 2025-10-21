@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Card from './Card';
-import '../styles/Topic.css';
+import '../styles/CrystalTheme.css';
 
 const Topic = ({ topic, deleteTopic, toggleCollapse, setTopics, topics }) => {
     const [addingNew, setAddingNew] = useState(false);
@@ -16,11 +16,11 @@ const Topic = ({ topic, deleteTopic, toggleCollapse, setTopics, topics }) => {
     };
 
     return (
-        <div className="topic-card">
-            <div className="topic-header">
-                <h2 className="topic-title">{topic.name}</h2>
-                <div className="topic-buttons">
-                    <button onClick={() => toggleCollapse(topic.id)} className="btn-toggle">
+        <div className="crystal-topic-card">
+            <div className="crystal-topic-header">
+                <h2 className="crystal-topic-name">{topic.name}</h2>
+                <div className="crystal-topic-actions">
+                    <button onClick={() => toggleCollapse(topic.id)} className="crystal-action-button crystal-toggle-button">
                         {topic.collapsed ? 'Expand' : 'Collapse'}
                     </button>
                     <button
@@ -29,17 +29,16 @@ const Topic = ({ topic, deleteTopic, toggleCollapse, setTopics, topics }) => {
                                 deleteTopic(topic.id);
                             }
                         }}
-                        className="btn-delete"
+                        className="crystal-action-button crystal-delete-button"
                     >
                         Delete
                     </button>
                 </div>
-
             </div>
 
             {!topic.collapsed && (
-                <>
-                    <div className="cards-list">
+                <div className="crystal-topic-content">
+                    <div className="crystal-cards-grid">
                         {topic.cards?.map((card) => (
                             <Card
                                 key={card.id}
@@ -67,11 +66,12 @@ const Topic = ({ topic, deleteTopic, toggleCollapse, setTopics, topics }) => {
                     </div>
 
                     {!addingNew && (
-                        <button className="btn-add-card" onClick={() => setAddingNew(true)}>
-                            + Add New Card
+                        <button className="crystal-add-card-button" onClick={() => setAddingNew(true)}>
+                            <span>+</span>
+                            <span>Add New Card</span>
                         </button>
                     )}
-                </>
+                </div>
             )}
         </div>
     );

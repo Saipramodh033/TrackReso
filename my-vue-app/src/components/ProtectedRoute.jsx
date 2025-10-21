@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children }) => {
             if (isMounted) setIsAuthorized(false);
             return;
           }
-          const response = await api.post('token/refresh/', { refresh: refreshToken });
+          const response = await api.post('/token/refresh/', { refresh: refreshToken });
           localStorage.setItem(ACCESS_TOKEN, response.data.access);
           if (isMounted) setIsAuthorized(true);
         } else {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import api from './api';
-import '../styles/Card.css';
+import '../styles/SidebarLayout.css';
 
-const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onAdded }) => {
-    const [editing, setEditing] = useState(isNew);
+const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onAdded, isReadOnly = false }) => {
+    const [editing, setEditing] = useState(isNew && !isReadOnly);
 
     const [formData, setFormData] = useState({
         name: card?.name || '',
@@ -83,6 +83,8 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
     };
 
     const toggleStar = async () => {
+        if (isReadOnly) return; // Prevent starring in read-only mode
+        
         try {
             const updatedCard = {
                 ...card,
@@ -109,57 +111,71 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
 
     if (isNew && !editing) {
         return (
-            <button className="add-new-card-btn" onClick={() => setEditing(true)}>
-                + Add New Card
-            </button>
+            <div className="crystal-main-add-card" onClick={() => setEditing(true)}>
+                <div className="crystal-add-card-icon">+</div>
+                <div>Add New Card</div>
+            </div>
         );
     }
 
     return (
-        <div className="card-container">
-            {editing ? (
-                <div className="card-edit-form">
-                    <h3 className="card-subheading">{isNew ? 'Add New Card' : 'Edit Card'}</h3>
+        <div className={`crystal-card-content ${isReadOnly ? 'crystal-card-readonly' : ''}`}>
+            {editing && !isReadOnly ? (
+                <div className="crystal-form">
+                    <h3 className="crystal-card-title">{isNew ? 'Add New Card' : 'Edit Card'}</h3>
 
-                    <label className="card-label">Card Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Card Name"
-                    />
+                    <div className="crystal-form-group">
+                        <label className="crystal-form-label">Card Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            placeholder="Card Name"
+                            className="crystal-form-input"
+                        />
+                    </div>
 
-                    <label className="card-label">Resource</label>
-                    <textarea
-                        name="resource"
-                        value={formData.resource}
-                        onChange={handleChange}
-                        placeholder="Resource"
-                    />
+                    <div className="crystal-form-group">
+                        <label className="crystal-form-label">Resource</label>
+                        <textarea
+                            name="resource"
+                            value={formData.resource}
+                            onChange={handleChange}
+                            placeholder="Resource"
+                            className="crystal-form-textarea"
+                        />
+                    </div>
 
-                    <label className="card-label">Note</label>
-                    <textarea
-                        name="note"
-                        value={formData.note}
-                        onChange={handleChange}
-                        placeholder="Note"
-                    />
+                    <div className="crystal-form-group">
+                        <label className="crystal-form-label">Note</label>
+                        <textarea
+                            name="note"
+                            value={formData.note}
+                            onChange={handleChange}
+                            placeholder="Note"
+                            className="crystal-form-textarea"
+                        />
+                    </div>
 
-                    <label className="card-label">Progress: {formData.progress}%</label>
-                    <input
-                        type="range"
-                        name="progress"
-                        value={formData.progress}
-                        onChange={handleChange}
-                        min="0"
-                        max="100"
-                        step="1"
-                        className="progress-slider"
-                    />
+                    <div className="crystal-form-group">
+                        <label className="crystal-form-label">Progress: {formData.progress}%</label>
+                        <input
+                            type="range"
+                            name="progress"
+                            value={formData.progress}
+                            onChange={handleChange}
+                            min="0"
+                            max="100"
+                            step="1"
+                            className="crystal-range-input"
+                        />
+                    </div>
 
-                    <div className="card-actions">
-                        <button onClick={handleSave}>💾 Save</button>
+                    <div className="crystal-form-actions">
+                        <button onClick={handleSave} className="crystal-card-button crystal-save-button">
+                            💾 Save
+                        </button>
                         <button
                             onClick={() => {
                                 if (isNew && onAdded) {
@@ -176,48 +192,62 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
                                     });
                                 }
                             }}
+                            className="crystal-card-button crystal-cancel-button"
                         >
                             ✖ Cancel
                         </button>
                     </div>
                 </div>
             ) : (
-                <div className="card-view">
-                    <h3 className="card-subheading">Card Details</h3>
-                    <p><strong>Name:</strong> {card.name}</p>
-                    <p><strong>Resource:</strong> {card.resource}</p>
-                    <p><strong>Note:</strong> {card.note}</p>
+                <>
+                    <div className="crystal-card-header">
+                        <h3 className="crystal-card-title">{card.name}</h3>
+                        {!isReadOnly && (
+                            <button className="crystal-star-button" onClick={toggleStar}>
+                                {card.starred ? '⭐' : '☆'}
+                            </button>
+                        )}
+                    </div>
+                    
+                    <div className="crystal-card-field">
+                        <span className="crystal-field-label">Resource</span>
+                        <div className="crystal-field-value">{card.resource || 'No resource specified'}</div>
+                    </div>
+                    
+                    <div className="crystal-card-field">
+                        <span className="crystal-field-label">Note</span>
+                        <div className="crystal-field-value">{card.note || 'No note added'}</div>
+                    </div>
 
-                    <div className="progress-display">
-                        <strong>Progress:</strong>
-                        <div className="progress-bar">
+                    <div className="crystal-progress-container">
+                        <span className="crystal-field-label">Progress</span>
+                        <div className="crystal-progress-bar">
                             <div
-                                className="progress-bar-fill"
+                                className="crystal-progress-fill"
                                 style={{ width: `${card.progress}%` }}
-                            >
-                                <span className="progress-label">{card.progress}%</span>
-                            </div>
+                            />
                         </div>
+                        <div className="crystal-progress-text">{card.progress}%</div>
                     </div>
 
-                    <div className="card-actions">
-                        <button className="edit-btn" onClick={() => setEditing(true)}>✏ Edit</button>
-                        <button className="star-btn" onClick={toggleStar}>
-                            {card.starred ? '⭐' : '☆'}
-                        </button>
-                        <button
-                            className="delete-btn"
-                            onClick={() => {
-                                if (window.confirm('Are you sure you want to delete this card?')) {
-                                    deleteCard(card.id);
-                                }
-                            }}
-                        >
-                            🗑 Delete
-                        </button>
-                    </div>
-                </div>
-
+                    {!isReadOnly && (
+                        <div className="crystal-card-actions">
+                            <button className="crystal-card-button crystal-edit-button" onClick={() => setEditing(true)}>
+                                ✏ Edit
+                            </button>
+                            <button
+                                className="crystal-card-button crystal-delete-card-button"
+                                onClick={() => {
+                                    if (window.confirm('Are you sure you want to delete this card?')) {
+                                        deleteCard(card.id);
+                                    }
+                                }}
+                            >
+                                🗑 Delete
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );

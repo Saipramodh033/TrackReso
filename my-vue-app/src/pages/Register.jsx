@@ -11,6 +11,7 @@ function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -46,7 +47,7 @@ function Register() {
     return (
         <div className="register-container">
             <div className="register-card">
-                <h1 className="brand-title">Resource Tracker</h1>
+                <h1 className="brand-title">TrackReso</h1>
                 <p className="brand-desc">
                     Efficiently manage and track your resources with ease. Monitor usage,
                     allocations, and availability all in one place.
@@ -72,44 +73,48 @@ function Register() {
                         />
                     </div>
 
-                    <div className="input-group password-group">
+                    <div className="input-group">
                         <label>Password</label>
-                        <div className="password-flex">
+                        <div className="password-input-container">
                             <input
                                 type={showPassword ? "text" : "password"}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
-                            <label className="checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    checked={showPassword}
-                                    onChange={() => setShowPassword(!showPassword)}
-                                />
-                                Show
-                            </label>
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={() => setShowPassword(!showPassword)}
+                                aria-label={showPassword ? "Hide password" : "Show password"}
+                            >
+                                {showPassword ? "🙈" : "👁️"}
+                            </button>
                         </div>
                     </div>
 
-                    <div className="input-group password-group">
+                    <div className="input-group">
                         <label>Confirm Password</label>
-                        <div className="password-flex">
+                        <div className="password-input-container">
                             <input
-                                type={showPassword ? "text" : "password"}
+                                type={showConfirmPassword ? "text" : "password"}
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
+                                className={password && confirmPassword && password !== confirmPassword ? "password-mismatch" : ""}
                             />
-                            <label className="checkbox-label">
-                                <input
-                                    type="checkbox"
-                                    checked={showPassword}
-                                    onChange={() => setShowPassword(!showPassword)}
-                                />
-                                Show
-                            </label>
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                            >
+                                {showConfirmPassword ? "🙈" : "👁️"}
+                            </button>
                         </div>
+                        {password && confirmPassword && password !== confirmPassword && (
+                            <small className="password-mismatch-text">Passwords do not match</small>
+                        )}
                     </div>
 
                     {error && <p className="error-message">{error}</p>}
