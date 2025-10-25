@@ -202,6 +202,8 @@ if DEBUG:
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:5173",  # Local React development server
         "http://127.0.0.1:5173",  # Alternative local address
+        "http://localhost:5174",  # Alternative Vite port
+        "http://127.0.0.1:5174",  # Alternative local address for 5174
         "http://localhost:3000",  # Alternative React port
     ]
 else:

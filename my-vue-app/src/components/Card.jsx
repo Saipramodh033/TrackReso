@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../contexts/ToastContext';
 import api from './api';
 import '../styles/SidebarLayout.css';
 
 const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onAdded, isReadOnly = false }) => {
+    const { showSuccess, showError } = useToast();
     const [editing, setEditing] = useState(isNew && !isReadOnly);
 
     const [formData, setFormData] = useState({
@@ -34,13 +36,29 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
     };
 
     const handleSave = async () => {
+        console.log('handleSave called, isNew:', isNew, 'formData:', formData);
+        // Basic validation
+        if (!formData.name.trim()) {
+            showError('Card name is required.');
+            return;
+        }
+
+        if (formData.name.trim().length > 255) {
+            showError('Card name must be less than 255 characters.');
+            return;
+        }
+
         try {
             if (isNew) {
-                const response = await api.post('cards/', {
+                const payload = {
                     ...formData,
+                    name: formData.name.trim(),
                     progress: Number(formData.progress),
                     topic: topicId,
-                });
+                };
+                console.log('Creating new card with payload:', payload);
+                const response = await api.post('cards/', payload);
+                console.log('Card creation response:', response.data);
 
                 const newCard = response.data;
 
@@ -53,13 +71,18 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
 
                 setEditing(false);
                 if (onAdded) onAdded();
+                showSuccess('Card created successfully!');
 
             } else {
-                const response = await api.put(`cards/${card.id}/`, {
+                const payload = {
                     ...formData,
+                    name: formData.name.trim(),
                     progress: Number(formData.progress),
                     topic: topicId,
-                });
+                };
+                console.log('Updating card with payload:', payload);
+                const response = await api.put(`cards/${card.id}/`, payload);
+                console.log('Card update response:', response.data);
 
                 const updatedCard = response.data;
 
@@ -75,10 +98,19 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
                 );
                 setTopics(updatedTopics);
                 setEditing(false);
+                showSuccess('Card updated successfully!');
             }
         } catch (error) {
             console.error('Error saving card:', error);
-            alert('Failed to save card. Please try again.');
+            if (error.response?.status === 401) {
+                showError('Session expired. Please login again.');
+                // Redirect to login or refresh token
+            } else if (error.response?.status === 400) {
+                const errorMsg = error.response.data?.detail || error.response.data?.name?.[0] || 'Invalid data. Please check your inputs.';
+                showError(errorMsg);
+            } else {
+                showError('Failed to save card. Please try again.');
+            }
         }
     };
 
@@ -103,9 +135,14 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
                     : topic
             );
             setTopics(updatedTopics);
+            showSuccess(response.data.starred ? 'Card starred!' : 'Card unstarred!');
         } catch (error) {
             console.error('Error toggling star:', error);
-            alert('Could not update starred status.');
+            if (error.response?.status === 401) {
+                showError('Session expired. Please login again.');
+            } else {
+                showError('Could not update starred status.');
+            }
         }
     };
 
@@ -125,7 +162,7 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
                     <h3 className="crystal-card-title">{isNew ? 'Add New Card' : 'Edit Card'}</h3>
 
                     <div className="crystal-form-group">
-                        <label className="crystal-form-label">Card Name</label>
+                        <label className="crystal-form-label">Card Name *</label>
                         <input
                             type="text"
                             name="name"
@@ -133,6 +170,8 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
                             onChange={handleChange}
                             placeholder="Card Name"
                             className="crystal-form-input"
+                            required
+                            maxLength="255"
                         />
                     </div>
 
@@ -173,7 +212,10 @@ const Card = ({ card, deleteCard, topicId, topics, setTopics, isNew = false, onA
                     </div>
 
                     <div className="crystal-form-actions">
-                        <button onClick={handleSave} className="crystal-card-button crystal-save-button">
+                        <button onClick={() => {
+                            console.log('Save button clicked in Card component!');
+                            handleSave();
+                        }} className="crystal-card-button crystal-save-button">
                             💾 Save
                         </button>
                         <button

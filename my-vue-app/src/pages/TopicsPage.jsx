@@ -38,7 +38,11 @@ const TopicsPage = () => {
         setSelectedTopic(newTopic);
       } catch (error) {
         console.error('Error adding topic:', error);
-        alert('Failed to add topic. Please try again.');
+        if (error.response?.status === 401) {
+          alert('Session expired. Please login again.');
+        } else {
+          alert('Failed to add topic. Please try again.');
+        }
       }
     }
   };
@@ -69,7 +73,11 @@ const TopicsPage = () => {
       setSelectedTopic(updatedTopics.find(topic => topic.id === selectedTopic.id));
     } catch (error) {
       console.error('Error deleting card:', error);
-      alert('Failed to delete card. Please try again.');
+      if (error.response?.status === 401) {
+        alert('Session expired. Please login again.');
+      } else {
+        alert('Failed to delete card. Please try again.');
+      }
     }
   };
 

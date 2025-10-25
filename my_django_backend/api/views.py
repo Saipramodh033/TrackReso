@@ -143,6 +143,18 @@ class CreateuserView(generics.CreateAPIView):
         print("Incoming data:", request.data)
         return super().create(request, *args, **kwargs)
 
+@extend_schema(
+    summary="Get user profile",
+    description="Retrieve the authenticated user's profile information",
+    responses={200: UserSerializer}
+)
+class UserProfileView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
 class PeerViewSet(viewsets.ModelViewSet):
     serializer_class = PeerRelationshipSerializer
     permission_classes = [IsAuthenticated]

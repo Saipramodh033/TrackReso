@@ -25,10 +25,11 @@ class TopicSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "username", "email", "password"]
+        fields = ["id", "username", "email", "password", "date_joined"]
         extra_kwargs = {
             'password': {'write_only': True, 'required': True},
             'email': {'required': False},
+            'date_joined': {'read_only': True},
         }
 
     def create(self, validated_data):

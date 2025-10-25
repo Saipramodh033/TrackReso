@@ -8,7 +8,7 @@ import PeersView from '../components/PeersView';
 import SharedView from '../components/SharedView';
 import '../styles/Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = ({ defaultTab = 'my-topics' }) => {
   const { user, logout, handleUnauthorized } = useAuth();
   const {
     topics,
@@ -23,7 +23,7 @@ const Dashboard = () => {
     isLoading
   } = useDashboardData(user);
 
-  const [activeTab, setActiveTab] = useState('my-topics');
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
   if (isLoading) {
     return (
@@ -53,6 +53,7 @@ const Dashboard = () => {
             selectedTopic={selectedTopic}
             setSelectedTopic={setSelectedTopic}
             onUnauthorized={handleUnauthorized}
+            user={user}
           />
         );
       case 'peers':

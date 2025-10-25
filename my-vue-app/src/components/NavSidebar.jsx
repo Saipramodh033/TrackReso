@@ -29,22 +29,34 @@ const NavSidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   const navItems = [
     {
+      path: '/home',
+      icon: '🏠',
+      label: 'Home'
+    },
+    {
+      path: '/dashboard',
+      icon: '📊',
+      label: 'Dashboard'
+    },
+    {
       path: '/topics',
       icon: '📚',
-      label: 'My Topics',
-      description: 'Manage your learning topics'
+      label: 'My Topics'
     },
     {
       path: '/peers',
       icon: '👥',
-      label: 'Peers',
-      description: 'Manage peer connections'
+      label: 'Peers'
     },
     {
       path: '/shared',
       icon: '🤝',
-      label: 'Shared Topics',
-      description: 'View topics shared with you'
+      label: 'Shared Topics'
+    },
+    {
+      path: '/profile',
+      icon: '👤',
+      label: 'Profile'
     }
   ];
 
@@ -52,54 +64,44 @@ const NavSidebar = ({ sidebarOpen, setSidebarOpen }) => {
     <>
       {/* Mobile Toggle Button */}
       <button 
-        className="crystal-mobile-toggle"
+        className="crystal-nav-toggle"
         onClick={() => setSidebarOpen(!sidebarOpen)}
       >
         ☰
       </button>
 
-      {/* Sidebar Overlay for Mobile */}
-      <div 
-        className={`crystal-sidebar-overlay ${sidebarOpen ? 'open' : ''}`}
-        onClick={() => setSidebarOpen(false)}
-      />
-
       {/* Navigation Sidebar */}
       <div className={`crystal-nav-sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <div className="crystal-nav-sidebar-header">
-          <h2 className="crystal-nav-sidebar-title">TrackReso</h2>
+        {/* User Section */}
+        <div className="crystal-nav-user">
           <div className="crystal-nav-user-info">
-            <span className="crystal-nav-username">Hello, {getCurrentUser()}</span>
+            <div className="crystal-nav-avatar">
+              {getCurrentUser().charAt(0).toUpperCase()}
+            </div>
+            <div className="crystal-nav-user-details">
+              <h3>{getCurrentUser()}</h3>
+              <p>Learning Enthusiast</p>
+            </div>
           </div>
         </div>
 
+        {/* Navigation Menu */}
         <nav className="crystal-nav-menu">
           {navItems.map((item) => (
             <button
               key={item.path}
               className={`crystal-nav-item ${location.pathname === item.path ? 'active' : ''}`}
               onClick={() => {
+                console.log('Navigating to:', item.path);
                 navigate(item.path);
                 setSidebarOpen(false); // Close mobile sidebar after navigation
               }}
             >
-              <div className="crystal-nav-item-content">
-                <span className="crystal-nav-icon">{item.icon}</span>
-                <div className="crystal-nav-text">
-                  <span className="crystal-nav-label">{item.label}</span>
-                  <span className="crystal-nav-description">{item.description}</span>
-                </div>
-              </div>
+              <span className="crystal-nav-icon">{item.icon}</span>
+              <span className="crystal-nav-text">{item.label}</span>
             </button>
           ))}
         </nav>
-
-        <div className="crystal-nav-sidebar-footer">
-          <button className="crystal-nav-logout-btn" onClick={handleLogout}>
-            <span className="crystal-nav-icon">🚪</span>
-            <span className="crystal-nav-label">Logout</span>
-          </button>
-        </div>
       </div>
     </>
   );

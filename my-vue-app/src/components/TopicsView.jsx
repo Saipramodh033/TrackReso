@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import apiService from '../services/apiService';
 import { useErrorHandler } from '../utils/errorHandling';
+import AddTopicModal from './modals/AddTopicModal';
+import AddCardModal from './modals/AddCardModal';
+import EditCardModal from './modals/EditCardModal';
+import ShareModal from './modals/ShareModal';
 
 const TopicsView = ({ 
   topics, 
   setTopics, 
   selectedTopic, 
   setSelectedTopic, 
-  onUnauthorized 
+  onUnauthorized,
+  user 
 }) => {
+  console.log('TopicsView rendered with:', { topics, selectedTopic, user });
+  
   const [expandedCards, setExpandedCards] = useState(new Set());
   const handleError = useErrorHandler(onUnauthorized);
   
@@ -30,6 +37,7 @@ const TopicsView = ({
   const [availablePeers, setAvailablePeers] = useState([]);
 
   const addTopic = async () => {
+    console.log('addTopic called in TopicsView with:', newTopicName.trim());
     if (!newTopicName.trim()) {
       alert('Topic name is required!');
       return;
@@ -222,7 +230,10 @@ const TopicsView = ({
           <h3>Your Topics</h3>
           <button
             className="add-topic-btn"
-            onClick={() => setShowAddTopicModal(true)}
+            onClick={() => {
+              console.log('Add Topic button clicked in TopicsView!');
+              setShowAddTopicModal(true);
+            }}
           >
             <span>➕</span> Add Topic
           </button>
@@ -255,7 +266,10 @@ const TopicsView = ({
                 </button>
                 <button
                   className="add-card-btn"
-                  onClick={() => setShowAddCardModal(true)}
+                  onClick={() => {
+                    console.log('Add Card button clicked in TopicsView!');
+                    setShowAddCardModal(true);
+                  }}
                 >
                   ➕ Add Card
                 </button>
@@ -374,7 +388,36 @@ const TopicsView = ({
         )}
       </div>
 
-      {/* Modals would be rendered here - these will be extracted to separate components */}
+      {/* Modals */}
+      <AddTopicModal
+        show={showAddTopicModal}
+        onClose={() => setShowAddTopicModal(false)}
+        newTopicName={newTopicName}
+        setNewTopicName={setNewTopicName}
+        onAddTopic={addTopic}
+      />
+
+      <AddCardModal
+        show={showAddCardModal}
+        onClose={() => setShowAddCardModal(false)}
+        newCard={newCard}
+        setNewCard={setNewCard}
+        onAddCard={addCard}
+      />
+
+      <EditCardModal
+        editingCard={editingCard}
+        setEditingCard={setEditingCard}
+        onUpdateCard={updateCard}
+      />
+
+      <ShareModal
+        show={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        availablePeers={availablePeers}
+        onShareTopic={shareTopic}
+        user={user}
+      />
     </div>
   );
 };

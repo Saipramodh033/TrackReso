@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../contexts/ToastContext';
 import api from './api';
 import Card from './Card';
 import {jwtDecode }from 'jwt-decode';
@@ -7,11 +8,17 @@ import '../styles/SidebarLayout.css';
 
 const TopicManager = () => {
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const [topics, setTopics] = useState([]);
   const [newTopicName, setNewTopicName] = useState('');
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [addingNewCard, setAddingNewCard] = useState(false);
+
+  // Add simple test to see if component is rendering
+  console.log('TopicManager component rendered');
+  console.log('Current topics:', topics);
+  console.log('Selected topic:', selectedTopic);
 
   useEffect(() => {
     fetchTopics();
@@ -43,26 +50,40 @@ const TopicManager = () => {
   };
 
   const addTopic = async () => {
-    if (newTopicName.trim()) {
-      try {
-        const token = localStorage.getItem('accessToken');
-        if (!token) throw new Error('No auth token found');
+    console.log('addTopic called with:', newTopicName);
+    const trimmedName = newTopicName.trim();
+    if (!trimmedName) {
+      showError('Topic name is required.');
+      return;
+    }
 
-        const decoded = jwtDecode(token);
-        const currentUserId = decoded.user_id || decoded.id || decoded.sub;
+    if (trimmedName.length > 255) {
+      showError('Topic name must be less than 255 characters.');
+      return;
+    }
 
-        const payload = {
-          name: newTopicName,
-          user: currentUserId,
-        };
+    try {
+      const payload = {
+        name: trimmedName,
+      };
 
-        const response = await api.post('topics/', payload);
-        const newTopic = { ...response.data, cards: [] };
-        setTopics([...topics, newTopic]);
-        setSelectedTopic(newTopic);
-        setNewTopicName('');
-      } catch (error) {
-        console.error('Error adding topic:', error);
+      console.log('Sending payload:', payload);
+      const response = await api.post('topics/', payload);
+      console.log('Response received:', response.data);
+      const newTopic = { ...response.data, cards: [] };
+      setTopics([...topics, newTopic]);
+      setSelectedTopic(newTopic);
+      setNewTopicName('');
+      showSuccess(`Topic "${newTopic.name}" created successfully!`);
+    } catch (error) {
+      console.error('Error adding topic:', error);
+      if (error.response?.status === 401) {
+        showError('Session expired. Please login again.');
+        handleLogout();
+      } else if (error.response?.status === 400) {
+        showError('Invalid topic name. Please check your input.');
+      } else {
+        showError('Failed to add topic. Please try again.');
       }
     }
   };
@@ -77,8 +98,15 @@ const TopicManager = () => {
       if (selectedTopic && selectedTopic.id === id) {
         setSelectedTopic(updatedTopics.length > 0 ? updatedTopics[0] : null);
       }
+      showSuccess('Topic deleted successfully!');
     } catch (error) {
       console.error('Error deleting topic:', error);
+      if (error.response?.status === 401) {
+        showError('Session expired. Please login again.');
+        handleLogout();
+      } else {
+        showError('Failed to delete topic. Please try again.');
+      }
     }
   };
 
@@ -95,19 +123,32 @@ const TopicManager = () => {
     setSidebarOpen(false); // Close sidebar on mobile after selection
   };
 
-  const deleteCard = (cardId) => {
+  const deleteCard = async (cardId) => {
     if (!selectedTopic) return;
     
-    const updatedTopics = topics.map((topic) =>
-      topic.id === selectedTopic.id
-        ? { ...topic, cards: topic.cards.filter((card) => card.id !== cardId) }
-        : topic
-    );
-    setTopics(updatedTopics);
-    
-    // Update selected topic
-    const updatedSelectedTopic = updatedTopics.find(t => t.id === selectedTopic.id);
-    setSelectedTopic(updatedSelectedTopic);
+    try {
+      await api.delete(`cards/${cardId}/`);
+      
+      const updatedTopics = topics.map((topic) =>
+        topic.id === selectedTopic.id
+          ? { ...topic, cards: topic.cards.filter((card) => card.id !== cardId) }
+          : topic
+      );
+      setTopics(updatedTopics);
+      
+      // Update selected topic
+      const updatedSelectedTopic = updatedTopics.find(t => t.id === selectedTopic.id);
+      setSelectedTopic(updatedSelectedTopic);
+      showSuccess('Card deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting card:', error);
+      if (error.response?.status === 401) {
+        showError('Session expired. Please login again.');
+        handleLogout();
+      } else {
+        showError('Failed to delete card. Please try again.');
+      }
+    }
   };
 
   const handleLogout = () => {
@@ -147,7 +188,10 @@ const TopicManager = () => {
               onKeyDown={(e) => e.key === 'Enter' && addTopic()}
             />
             <button
-              onClick={addTopic}
+              onClick={() => {
+                console.log('Add Topic button clicked!');
+                addTopic();
+              }}
               disabled={!newTopicName.trim()}
               className="crystal-add-topic-btn"
             >
@@ -256,7 +300,10 @@ const TopicManager = () => {
                 {!addingNewCard && (
                   <div
                     className="crystal-main-add-card"
-                    onClick={() => setAddingNewCard(true)}
+                    onClick={() => {
+                      console.log('Add New Card clicked!');
+                      setAddingNewCard(true);
+                    }}
                   >
                     <div className="crystal-add-card-icon">+</div>
                     <div>Add New Card</div>

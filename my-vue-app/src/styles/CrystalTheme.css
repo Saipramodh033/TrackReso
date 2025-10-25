@@ -7,6 +7,25 @@
   box-sizing: border-box;
 }
 
+/* Remove default button focus outline globally */
+button:focus,
+button:active {
+  outline: none !important;
+}
+
+/* Global button styles */
+button {
+  border: none;
+  outline: none;
+}
+
+button:hover,
+button:focus,
+button:active {
+  border: none;
+  outline: none;
+}
+
 :root {
   /* Crystal Blue Color Palette */
   --crystal-primary: #e1f5fe;
@@ -15,6 +34,9 @@
   --crystal-deep: #0277bd;
   --crystal-glass: rgba(225, 245, 254, 0.85);
   --crystal-glass-dark: rgba(179, 229, 252, 0.9);
+  
+  /* Layout */
+  --sidebar-width: 280px;
   
   /* Gradients */
   --crystal-gradient: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 50%, #81d4fa 100%);

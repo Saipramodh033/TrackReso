@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useToast } from "../contexts/ToastContext";
 import api from "../components/api";
 import "../styles/Register.css";
 import LoadingPage from "./LoadingPage";
@@ -14,6 +15,7 @@ function Register() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { showSuccess, showError } = useToast();
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -27,15 +29,21 @@ function Register() {
         setLoading(true);
         try {
             await api.post("/user/register/", { username, email, password });
-            navigate("/login");
+            // Show success message before navigating
+            showSuccess("Registration successful! Redirecting to login...", 2000);
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
         } catch (err) {
             if (err.response) {
-                setError(
-                    err.response.data.detail ||
-                    "Registration failed. Please check your details."
-                );
+                const errorMessage = err.response.data.detail || 
+                    "Registration failed. Please check your details.";
+                setError(errorMessage);
+                showError(errorMessage);
             } else {
-                setError("Failed to connect to server. Please try again.");
+                const errorMessage = "Failed to connect to server. Please try again.";
+                setError(errorMessage);
+                showError(errorMessage);
             }
         } finally {
             setLoading(false);
