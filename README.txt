@@ -290,7 +290,7 @@ List shared topics
 
 ---
 
-## 🚀 Deployment
+## 🚀 Deployment Plan
 
 ### Backend (Render)
 
@@ -298,7 +298,7 @@ List shared topics
 2.  Set environment variables in Render dashboard
 3.  Deploy using `requirements.txt` and `Procfile`
 
-### Frontend (Netlify/Vercel)
+### Frontend (Netlify/Vercel/Render)
 
 1.  Build the React app: `npm run build`
 2.  Deploy `dist/` folder to hosting service
